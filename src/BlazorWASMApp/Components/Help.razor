@@ -1,0 +1,118 @@
+﻿@page "/help"
+
+<div class="row help-text">
+    <div class="col-md-2"></div>
+
+    <div class="col-md-8">
+
+        <p><strong>Introduction</strong></p>
+        <p>
+            Many Open University students wonder what classification they will be awarded for their degree qualification. This tool aims to provide an estimate of the class you are 
+            likely to receive using the points and grades you have achieved for each module, or those you predict you’ll be awarded. Whilst the university provides the official guidance 
+            document <em><a href="https://help.open.ac.uk/documents/policies/working-out-your-class-of-honours/files/50/honours-class-working-out.pdf">Working Out Your Class of Honours</a></em>, 
+            some find this a little hard to follow. To help with this, various unofficial tools have been created, such as the widely known and reliable 
+            <a href="http://cleveret.net/?page_id=29">Cleveret calculator</a> (<em>Thank you to them for inspiring this version!</em>). 
+            This tool hopes to add another option, with some hopefully useful features such as saving your module list for later.
+        </p>
+
+        <p><strong>Disclaimer and notes on limitations of the tool</strong></p>
+        <p>
+            Please be aware that the tool is <strong>completely unofficial</strong>, provides an estimate only, and has various necessary limitations. 
+            The tool cannot for example take into account your individual circumstances or the regulations of your degree subject, and it will not check for any compulsary modules 
+            or excluded combinations. Efforts have been made to ensure its accuracy, but responsibility can’t be taken for wrong results, especially for less standard circumstances 
+            such as transferred credit. <strong>Always</strong> consult the official document from the Open University, or contact Student Support to discuss your individual 
+            qualification if you're in any doubt.
+        </p>
+
+        <p>
+            Should you have any queries or find an error, please feel free to <a href="mailto:lucy.parry@gmail.com">contact me</a>, or if you're that way inclined, 
+            issues or pull requests are very welcome on the <a href="">GitHub repository</a>.
+        </p>
+
+        <p><strong>How do undergraduate honours degrees work?</strong></p>
+        <p>
+            The OU uses the same classification system as other UK universities, in which degrees awarded 'with honours' are given one of four classifications; first, upper 
+            second (2:1), lower second (2:2) and third. Degrees can also be awarded without honours, these are usually referred to as 'ordinary degrees' and do not receive a 
+            classification.
+        </p>
+
+        <p><strong>How is the degree class calculated for OU honours degrees?</strong></p>
+        <p>
+            An OU honours degree consists of 360 module credits in total, with at least 240 credits at level 2 or above, and at least 120 credits at level 3. Level 1 module 
+            grades do not count towards the classification, so up to 240 credits at level 2 or above are used to calculate the overall class (the counting credit can be less 
+            if transferred credit has been used).
+        </p>
+        <p>
+            The best 120 module credits at level 3 are taken first, and are given a score based on the amount of credit (e.g. 60, 30), multiplied by the grade (where Distinction 
+            is 1 through to Pass 4 as 4). Each of these scores is then multiplied by 2 to give it double weighting in the calculation. Any remaining credit to be used is then given 
+            a score using the same process, without the double weighting. In practice, for most degrees without credit transfer, this is generally the level 2 modules.</p>
+        <p>
+            Each of the calculated module scores are then summed to give an overall initial score for the degree. Where 240 credits have been used, this will be between 360 and 1440, 
+            and the classification is given as follows:
+        </p>
+        <p>
+            <table class="table table-sm table-hover table-bordered table-responsive-sm5">
+                <tbody>
+                    <tr>
+                        <td style="width: 50%;">First</td>
+                        <td style="width: 50%;">630 or less</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%;">Upper Second (2:1)</td>
+                        <td style="width: 50%;">631 to 900</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%;">Lower Second (2:2)</td>
+                        <td style="width: 50%;">901 to 1170</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%;">Third</td>
+                        <td style="width: 50%;">1171 to 1440</td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <p>
+            A 'quality assurance' test is then performed to check that the best 60 credits at level 3 meets or exceeds the initial classification. If both the points total and 
+            quality assurance are satisfied, you will be awarded that classification.
+        </p>
+        <p>
+            This is all much easier to understand with a good example. The OU document 
+            <em><a href="https://help.open.ac.uk/documents/policies/working-out-your-class-of-honours/files/50/honours-class-working-out.pdf">Working Out Your Class of Honours</a></em> 
+            contains some useful ones, as does <a href="http://cleveret.net/?page_id=29">Cleveret</a>. The below is taken from this site, which you can interact with at 
+            <a href="http://localhost:60665/WFgyMDFfUDMwTDJHMUMwJlhYMjAzX1AzMEwyRzNDMCZYWDIxMF9QMzBMMkcyQzAmWFgyNTBfUDMwTDJHMkMwJlhYMzExX1AzMEwzRzJDMCZYWDM1NV9QMzBMM0czQzAmWFgzNTVfUDMwTDNHMUMwJlhYMzU1X1AzMEwzRzJDMA==">this link</a>.
+        </p>
+        <p>
+            <img src="/images/degree_example.png" asp-append-version="true">
+        </p>
+           
+        <p><strong>Notes about transferred credit and compulsary modules</strong></p>
+        <p>
+            Where transferred credit is used, less than 240 credits of grades are counted and the thresholds for each degree class are adjusted on a pro rata basis. The tool will attempt to
+            take this into account if you add a module with the amount of transferred credit you have been given and the grade set to 'transferred'. The tool will also allow you to mark a
+            module as 'compulsary' so it will always be counted in the calculation. Note that both cases are notoriously tricky, so always contact the OU to discuss if in any doubt, and never trust the estimates of tools like this alone!
+        </p>
+
+        <p><strong>How does this work? Are you storing my data somewhere?</strong> </p>
+        <p>
+            The calculation is done entirely in your own web browser and no data on your modules or qualification is stored or sent back to a server. 
+            The link feature works by simply encoding the list of module details into the URL, which is read back again when you request the page. 
+            For fellow programmers, the code is available on the <a href="#">GitHub repo</a>.  
+            It uses client-side <a href="https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor">Blazor</a>, an interesting new web framework from Microsoft 
+            which allows C# code to run on the client using WebAssembly (I prefer writing C# to JavaScript any day of the week, so I think this is great!)
+        </p>
+
+        <p><strong>About me</strong></p>
+        <p>
+            Hello I'm Lucy, I'm a software developer and recent OU graduate, you can <a href="mailto:lucy.parry@gmail.com">email me</a>
+            or find me on <a href="https://twitter.com/lucylucyparry">Twitter</a>.
+        </p>
+
+    </div>
+
+    <div class="col-md-2"></div>
+</div>
+
+@code {
+
+}
