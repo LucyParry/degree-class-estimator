@@ -8,6 +8,8 @@ namespace HonoursClassEstimator.BlazorWASMApp
     {
         public Degree Degree { get; set; }
 
+        public static string AppBaseHref => "/degree-class-estimator/";
+
         public IList<string> Errors { get; set; }
         
         public event Action OnChange;

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Docs\" />
     <Folder Include="wwwroot\data\" />
   </ItemGroup>
 

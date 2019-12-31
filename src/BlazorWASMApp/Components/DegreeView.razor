@@ -125,7 +125,7 @@
                                 <div class="col-md-12">
 
                                     @{
-                                    var saveUrl = $"{HostName}/degree-class-estimator/{(Degree.GetModuleCodeString()).Base64Encode(System.Text.Encoding.UTF8)}";
+                                    var saveUrl = $"{HostName}{AppState.AppBaseHref}{(Degree.GetModuleCodeString()).Base64Encode(System.Text.Encoding.UTF8)}";
                                     <input @bind="saveUrl" class="form-control" placeholder="" type="text" />
                                     }
                                 </div>
