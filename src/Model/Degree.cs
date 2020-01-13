@@ -6,14 +6,10 @@ using System.Text.RegularExpressions;
 namespace HonoursClassEstimator.Model
 {
     /// <summary>
-    /// Represents an Open University degree for the purposes of calculating its final classification
+    /// Represents an Open University undergraduate honours degree for the purposes of calculating its final classification
     /// </summary>
     public class Degree : IResult
     {
-        /// <summary>
-        /// Ctor
-        /// </summary>
-        /// <param name="thresholdsRepository"></param>
         public Degree()
         {
             IsCalculated = false;
@@ -25,13 +21,13 @@ namespace HonoursClassEstimator.Model
 
 
         /// <summary>
-        /// Whether the Degree class has been calculated yet
+        /// Whether the Degree class has been calculated
         /// </summary>
         public bool IsCalculated { get; set; }
 
 
         /// <summary>
-        /// <see cref="Result"/> object containing the results of the Degree class calculation
+        /// A <see cref="Result"/> object containing the results of the Degree class calculation
         /// </summary>
         public Result<Degree> CalculationResult { get; set; }
 
@@ -49,41 +45,28 @@ namespace HonoursClassEstimator.Model
 
 
         /// <summary>
-        /// 
+        /// The sum of the points for each of the <see cref="CountingModules"/>
         /// </summary>
-        public int CurrentCountingModulePoints
-        {
-            get
-            {
-                var sum = this.CountingModules?.Select(x => x?.Points).Sum();
-                return sum ?? 0;
-            }
-        }
+        public int CurrentCountingModulePoints => this.CountingModules?.Select(x => x?.Points).Sum() ?? 0;
 
         /// <summary>
         /// The <see cref="Module"/> objects that will be used in the 'Quality Assurance' calculation
         /// </summary>
         public IList<Module> QualityAssuranceModules { get; set; }
 
+        /// <summary>
+        /// A <see cref="ClassThresholds"/> object representing the points threshold for each classification
+        /// </summary>
         public ClassThresholds InitialClassThresholds { get; set; }
 
-
         /// <summary>
-        /// The sum of the points value of every <see cref="Module"/> associated 
-        /// with the <see cref="Degree"/>
+        /// The sum of the points value of every <see cref="Module"/> associated with the <see cref="Degree"/>
         /// </summary>
-        public int AllModulePoints
-        {
-            get
-            {
-                var sum = this.AllModules?.Select(x => x?.Points).Sum();
-                return sum ?? 0;
-            }
-        }
+        public int AllModulePoints => this.AllModules?.Select(x => x?.Points).Sum() ?? 0;
+
 
         /// <summary>
-        /// The sum of the points value of each <see cref="Module"/> which has been 
-        /// counted towards the <see cref="Degree"/> and is not transferred credit
+        /// The sum of the points value of each <see cref="Module"/> which has been counted towards the <see cref="Degree"/> and is not transferred credit
         /// </summary>
         public int CountingModulePointsForClassification
         {
@@ -92,13 +75,12 @@ namespace HonoursClassEstimator.Model
                 var sum = this.CountingModules?
                     .Where(x => x.Grade != Grade.Transferred)
                     .Select(x => x?.Points).Sum();
-
                 return Convert.ToInt32(sum);
             }
         }
 
         /// <summary>
-        /// 
+        /// The 'initial' honours classification based on the <see cref="DegreeWeightedPoints"/> and <see cref="ClassThresholds"/> 
         /// </summary>
         public HonoursClass InitialClass
         {
@@ -117,7 +99,7 @@ namespace HonoursClassEstimator.Model
         }
 
         /// <summary>
-        /// 
+        /// The classification indicated by the 'quality assurance' test
         /// </summary>
         public HonoursClass QualityAssuranceClass
         {
@@ -136,14 +118,13 @@ namespace HonoursClassEstimator.Model
         }
 
         /// <summary>
-        /// 
+        /// The final overall honours degree classification
         /// </summary>
         public HonoursClass FinalClass { get; set; }
 
 
-
         /// <summary>
-        /// 
+        /// Add a module to the <see cref="Degree"/> and reset the classification
         /// </summary>
         /// <param name="module"></param>
         public void AddModule(Module module)
@@ -153,7 +134,7 @@ namespace HonoursClassEstimator.Model
         }
 
         /// <summary>
-        /// 
+        /// Remove a module from the <see cref="Degree"/> and reset the classification
         /// </summary>
         /// <param name="module"></param>
         public void RemoveModule(Module module)
@@ -163,53 +144,41 @@ namespace HonoursClassEstimator.Model
         }
 
         /// <summary>
-        /// Set the thresholds used for calculating the initial class of the <see cref="Degree"/> 
+        /// Set the thresholds used to calculate the degree class
         /// </summary>
         private Result<ClassThresholds> SetInitialClassThresholds(ClassThresholds[] thresholdsList)
         {
             if (this.CountingModulePointsForClassification < 1)
             {
-                return new Result<ClassThresholds>(false,
-                    new List<string> { "No un-transferred credit found - Unable to classify" });
+                return new Result<ClassThresholds>(false, new List<string> { "No un-transferred credit found - Unable to classify" });
             }
-            else
+            Result<ClassThresholds> thresholdSetResult = GetThresholdSet((int)this.CountingModulePointsForClassification, thresholdsList);
+            if (thresholdSetResult.Success)
             {
-                Result<ClassThresholds> thresholdSetResult = 
-                    GetThresholdSet((int)this.CountingModulePointsForClassification, thresholdsList);
-
-                if (thresholdSetResult.Success)
-                {
-                    this.InitialClassThresholds = thresholdSetResult.ReturnObject;
-                }
-
-                return thresholdSetResult;
+                this.InitialClassThresholds = thresholdSetResult.ReturnObject;
             }
+            return thresholdSetResult;
         }
 
+
         /// <summary>
-        /// 
+        /// Get the set thresholds used for each degree class using the counting module points (excluding any transferred credit)
         /// </summary>
         /// <param name="availableCredit"></param>
         /// <returns></returns>
         public Result<ClassThresholds> GetThresholdSet(int availableCredit, ClassThresholds[] thresholdsList)
         {
-            ClassThresholds thresholds = thresholdsList
-                        .FirstOrDefault(x => x.AvailableCredit == availableCredit);
-
+            ClassThresholds thresholds = thresholdsList.FirstOrDefault(x => x.AvailableCredit == availableCredit);
             if (thresholds is null)
             {
-                return new Result<ClassThresholds>
-                    (false, new List<string> { "No threshold values found for points value" });
+                return new Result<ClassThresholds>(false, new List<string> { "No threshold values found for points value" });
             }
-            else
-            {
-                return new Result<ClassThresholds>(true, thresholds);
-            }
+            return new Result<ClassThresholds>(true, thresholds);
         }
 
 
         /// <summary>
-        /// 
+        /// Reset all members set when calculating the degree class
         /// </summary>
         public void ResetClassifications()
         {
@@ -232,7 +201,6 @@ namespace HonoursClassEstimator.Model
                 var sum = this.CountingModules?
                     .Where(x => x.Grade != Grade.Transferred)
                     .Select(x => x?.FinalWeightedPoints).Sum();
-
                 return sum ?? 0;
             }
         }
@@ -254,45 +222,47 @@ namespace HonoursClassEstimator.Model
         /// <summary>
         /// 
         /// </summary>
-        public List<Module> OrderedLevelThreeModules
+        public IEnumerable<Module> OrderedLevelThreeModules
         {
             get
             {
                 return AllModules
                     .Where(x => x.Level == Level.Three)
                     .OrderBy(x => (int)x.Grade)
-                    .OrderByDescending(x => x.Compulsary ? 1 : 0)
-                    .ToList();
+                    .OrderByDescending(x => x.Compulsary ? 1 : 0);
             }
         }
 
-        public List<Module> OrderedCountedLevelThreeModules
+        public IEnumerable<Module> OrderedCountedLevelThreeModules
         {
             get
             {
                 return CountingModules
                     .Where(x => x.Level == Level.Three)
-                    .OrderBy(x => (int)x.Grade)
-                    .ToList();
+                    .OrderBy(x => (int)x.Grade);
             }
         }
 
-        public List<Module> UncountedModules
+        public IEnumerable<Module> UncountedModules
         {
             get
             {
                 return AllModules
                     .Where(x => !CountingModules.Contains(x))
                     .OrderBy(x => (int)x.Grade)
-                    .OrderByDescending(x => x.Compulsary ? 1 : 0)
-                    .ToList();
+                    .OrderByDescending(x => x.Compulsary ? 1 : 0);
             }
         }
 
+        public string GetModuleCodeString()
+        {
+            string[] moduleCodes = AllModules.Select(x => x.ModuleDescriptionCode).ToArray();
+            return string.Join("&", moduleCodes);
+        }
 
 
         /// <summary>
-        /// 
+        /// Check a valid credit amount is present
         /// </summary>
         /// <returns></returns>
         public string Validate()
@@ -300,14 +270,11 @@ namespace HonoursClassEstimator.Model
             string generalInstruction = "Refer to the instructions for the minimum requirements for calculating your degree class";
 
             if (this.AllModulePoints < Constants.RequiredPointsAboveLevel1)
-            {
                 return $"Not enough total module credits - {generalInstruction}";
-            }
+
             if (this.AllModules?.Where(x => x?.Level == Level.Three).Select(x => x?.Points).Sum() < Constants.RequiredPointsLevel3)
-            {
                 return $"Not enough Level 3 credits - {generalInstruction}";
-                
-            }
+
             return "";
         }
 
@@ -325,8 +292,9 @@ namespace HonoursClassEstimator.Model
                 CalculationResult.Errors.Add(validationResult);
             }
 
-            GetCountingModules(OrderedLevelThreeModules, Constants.RequiredPointsLevel3, true);
-            GetCountingModules(UncountedModules, Constants.RequiredPointsAboveLevel1, false);
+            // Add counting modules for the required 120 at Level 3 first, then do the rest
+            GetCountingModules(OrderedLevelThreeModules.ToList(), Constants.RequiredPointsLevel3, true);
+            GetCountingModules(UncountedModules.ToList(), Constants.RequiredPointsAboveLevel1, false);
             AddQualityAssuranceModules();
 
             Result<ClassThresholds> initialThresholdsResult = SetInitialClassThresholds(thresholdsList);
@@ -353,8 +321,9 @@ namespace HonoursClassEstimator.Model
             CalculationResult = new Result<Degree>(success: true, returnObject: this);
         }
 
+
         /// <summary>
-        /// 
+        /// Get all modules which will count for the degree class from the given list
         /// </summary>
         /// <param name="availableModules"></param>
         /// <param name="maxPoints"></param>
@@ -413,12 +382,7 @@ namespace HonoursClassEstimator.Model
             }
         }
 
-        public string GetModuleCodeString()
-        {
-            string[] moduleCodes = AllModules.Select(x => x.ModuleDescriptionCode).ToArray();
-            return string.Join("&", moduleCodes);
-        }
-
+        
         /// <summary>
         /// Return a list of <see cref="Module"/> based on any <see cref="ModuleDescriptionCode"/> found in the <paramref name="degreeString"/>
         /// </summary>
@@ -434,10 +398,7 @@ namespace HonoursClassEstimator.Model
                 }
                 return modules;
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
     }    

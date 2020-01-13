@@ -10,9 +10,6 @@ namespace HonoursClassEstimator.Model
     /// </summary>
     public class Module
     {
-        /// <summary>
-        /// Ctor
-        /// </summary>
         public Module()
         {
             Compulsary = false;
@@ -60,7 +57,6 @@ namespace HonoursClassEstimator.Model
                 Points = this.Points,
                 Compulsary = this.Compulsary
             };
-
             return module;
         }
 
@@ -69,22 +65,13 @@ namespace HonoursClassEstimator.Model
         /// Check the <see cref="Module"/> is valid
         /// </summary>
         /// <returns></returns>
-        public bool IsValid()
-        {
-            return (this.Points > 0 && this.Points <= Constants.ModuleMaxPoints);
-        }
+        public bool IsValid() => (this.Points > 0 && this.Points <= Constants.ModuleMaxPoints);
 
 
         /// <summary>
         /// The <see cref="Points"/> multiplied by the <see cref="Grade"/> (so a lower <see cref="Grade"/> 'costs' more)
         /// </summary>
-        public int GradeWeightedPoints
-        {
-            get
-            {
-                return IsValid()? (Points * (int)Grade) : -1;
-            }
-        }
+        public int GradeWeightedPoints => IsValid() ? (Points * (int) Grade) : -1;
 
 
         /// <summary>
@@ -94,13 +81,11 @@ namespace HonoursClassEstimator.Model
         {
             get
             {
-                if (IsValid()) {
+                if (IsValid())
+                {
                     return DoubleWeight ? (GradeWeightedPoints * 2) : GradeWeightedPoints;
                 }
-                else
-                {
-                    return -1;
-                }
+                return -1;
             }
         }
 
@@ -136,24 +121,14 @@ namespace HonoursClassEstimator.Model
         /// <summary>
         /// Short code which represents the details of the <see cref="Module"/>
         /// </summary>
-        public string ModuleDescriptionCode
-        {
-            get
-            {
-                return $"{Description}_P{Points}L{(int)Level}G{(int)Grade}C{(Compulsary ? 1:0)}";
-            }
-        }
+        public string ModuleDescriptionCode => $"{Description}_P{Points}L{(int)Level}G{(int)Grade}C{(Compulsary ? 1 : 0)}";
+
 
         /// <summary>
         /// Short numerical description of the grade weighted points
         /// </summary>
-        public string GradeWeightedPointsShortDescription
-        {
-            get
-            {
-                return $"{Points} x {(int)Grade}";
-            }
-        }
+        public string GradeWeightedPointsShortDescription => $"{Points} x {(int)Grade}";
+
 
         /// <summary>
         /// Short numerical description of the final weighted points calculation
@@ -180,10 +155,7 @@ namespace HonoursClassEstimator.Model
                 {
                     return $"{Points} transferred module points";
                 }
-                else
-                {
-                    return $"{Points} module points, multiplied by {(int)Grade} for grade {(int)Grade}{doubleWeight}";
-                }
+                return $"{Points} module points, multiplied by {(int)Grade} for grade {(int)Grade}{doubleWeight}";
             }
         }
     }

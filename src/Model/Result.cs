@@ -2,6 +2,10 @@
 
 namespace HonoursClassEstimator.Model
 {
+    public interface IResult
+    {
+    }
+
     public class Result<T> where T : IResult
     {
         public bool Success { get; set; }
