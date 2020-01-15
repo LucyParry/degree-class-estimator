@@ -10,6 +10,8 @@ namespace HonoursClassEstimator.Model
     /// </summary>
     public interface IClassifier
     {
-        void Classify(Degree degree, ClassThresholds[] thresholdsList);
+        void Classify(Degree degree);
+
+        Result<ClassThresholds> GetThresholdSet(int availableCredit);
     }
 }

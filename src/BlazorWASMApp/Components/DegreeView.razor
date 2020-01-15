@@ -153,6 +153,7 @@
     [Parameter] public Action<Module> OnRemoveModule { get; set; }
 
     ClassThresholds[] Thresholds;
+    IClassifier Classifier;
 
     string ErrorString { get; set; }
     string HostName { get; set; }
@@ -169,25 +170,22 @@
     {
         if (!InvalidForCalculation)
         {
-            Degree.Classify(Thresholds);
+            Degree.Classify(Classifier);
 
             if (!Degree.CalculationResult.Success)
-            {
-                string errors = string.Join(",", Degree.CalculationResult.Errors);
-                ErrorString = errors;
-            }
+                ErrorString = string.Join(",", Degree.CalculationResult.Errors);
         }
 
         string host = await JSRuntime.InvokeAsync<string>("jsInteropFunctions.getLocationOrigin");
         HostName = host;
-        Console.WriteLine(HostName);
         this.StateHasChanged();
     }
 
     protected override async Task OnInitializedAsync()
     {
         ErrorString = "";
-        Thresholds = await Http.GetJsonAsync<ClassThresholds[]>("data/thresholds.json");   
+        Thresholds = await Http.GetJsonAsync<ClassThresholds[]>("data/thresholds.json");
+        Classifier = new StandardClassifier(Thresholds);
     }
 
 }

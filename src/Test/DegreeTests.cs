@@ -42,7 +42,9 @@ namespace HonoursClassEstimator.Tests
         {
             var degree = _testData.OUDocWorkedExample1;
             Assert.IsFalse(degree.IsCalculated);
-            degree.Classify(_thresholds.ToArray());
+
+            IClassifier classifier = new StandardClassifier(_thresholds.ToArray());
+            degree.Classify(classifier);
 
             Assert.IsTrue(degree.IsCalculated);
             Assert.AreEqual(960, degree.DegreeWeightedPoints);
@@ -58,7 +60,9 @@ namespace HonoursClassEstimator.Tests
         public void Test_Classify_OUWorkedExample2()
         {
             var degree = _testData.OUDocWorkedExample2;
-            degree.Classify(_thresholds.ToArray());
+            
+            IClassifier classifier = new StandardClassifier(_thresholds.ToArray());
+            degree.Classify(classifier);
 
             Assert.AreEqual(750, degree.DegreeWeightedPoints);
             Assert.AreEqual(90, degree.QualityAssuranceWeightedPoints);
@@ -72,7 +76,9 @@ namespace HonoursClassEstimator.Tests
         public void Test_Classify_WorkedExample3()
         {
             var degree = _testData.WorkedExample3;
-            degree.Classify(_thresholds.ToArray());
+            
+            IClassifier classifier = new StandardClassifier(_thresholds.ToArray());
+            degree.Classify(classifier);
 
             Assert.AreEqual(930, degree.DegreeWeightedPoints);
             Assert.AreEqual(150, degree.QualityAssuranceWeightedPoints);

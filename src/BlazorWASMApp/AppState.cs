@@ -1,5 +1,4 @@
 ﻿using HonoursClassEstimator.Model;
-using Model;
 using System;
 using System.Collections.Generic;
 
@@ -46,7 +45,8 @@ namespace HonoursClassEstimator.BlazorWASMApp
 
         public void ClassifyDegree(ClassThresholds[] thresholds)
         {
-            Degree.Classify(thresholds);
+            var classifier = new StandardClassifier(thresholds);
+            Degree.Classify(classifier);
             NotifyStateChanged();
         }
 
