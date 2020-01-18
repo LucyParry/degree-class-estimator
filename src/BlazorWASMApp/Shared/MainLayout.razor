@@ -1,21 +1,15 @@
 ﻿@inherits LayoutComponentBase
 
-<nav class="navbar navbar-expand-md bg-dark navbar-dark justify-content-between">
-
-    <!-- Brand -->
-    <div class="nav-title">
-        <a class="navbar-brand" href="#">
-            <span class="navbar-title-emoji" @onclick=RotateEmoji>@HeaderEmoji</span><span class="navbar-title-text">OU Degree Class Estimator</span>
-        </a>
-    </div>
-
-    <!-- Toggler/collapsibe Button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
+            aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
-    <!-- Navbar links -->
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <a class="navbar-brand" href="#" aria-label="Random emoji symbol which changes when clicked">
+        <span class="navbar-title-emoji" @onclick=RotateEmoji>@HeaderEmoji</span>
+    </a>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+        <a class="navbar-brand nav-title" href="#">OU Degree Class Estimator</a>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="nav-link" href="help">Help</a>
@@ -45,7 +39,7 @@
 
     protected override void OnInitialized()
     {
-        HeaderEmoji = "🎓";
+        HeaderEmoji = availableEmoji[0];
     }
 
     void RotateEmoji()
@@ -53,5 +47,4 @@
         Random randomGen = new Random();
         HeaderEmoji = availableEmoji[randomGen.Next(availableEmoji.Count - 1)];
     }
-
 }
