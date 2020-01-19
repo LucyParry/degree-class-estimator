@@ -28,8 +28,8 @@
                         @foreach (var module in Degree.AllModules)
                         {
                             <tr>
-                                <td style="text-align: center;">
-                                    <button @onclick="(() => OnRemoveModule(module))" type="submit" class="btn btn-info" title="Remove module">
+                                <td style="text-align: center; width: 5%;">
+                                    <button @onclick="(() => OnRemoveModule(module))" type="submit" class="btn btn-light mb-2" title="Remove module">
                                         <span class="oi oi-circle-x"></span>
                                     </button>
                                 </td>
@@ -119,21 +119,25 @@
                         <p><strong>Link</strong> - Copy to share or return to this degree later</p>
                     </div>
                     <div>
-
                         <div>
                             <div class="row">
-                                <div class="col-md-12">
-
+                                <div class="col-md-11">
                                     @{
                                         var saveUrl = $"{HostName}{AppState.AppBaseHref}{(Degree.GetModuleCodeString()).Base64Encode(System.Text.Encoding.UTF8)}";
-                                        <input @bind="saveUrl" class="form-control" placeholder="" type="text" />
+                                        <input @bind="saveUrl" class="form-control" id="generated-url" placeholder="" type="text" />
                                     }
+                                </div>
+                                <div class="col-md-1">
+                                    <button class="btn btn-info mb-2" @onclick="DoCopy">
+                                        Copy
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 }
 
+                <span id="results-section"></span>
                 <div class="section-top-padded">
                     @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
                     {
@@ -178,6 +182,13 @@
         string host = await JSRuntime.InvokeAsync<string>("jsInteropFunctions.getLocationOrigin");
         HostName = host;
         this.StateHasChanged();
+
+        await JSRuntime.InvokeAsync<string>("jsInteropFunctions.sectionJump", new string[] { "results-section" });
+    }
+
+    async void DoCopy()
+    {
+        await JSRuntime.InvokeAsync<string>("jsInteropFunctions.clipboardCopy");
     }
 
     protected override async Task OnInitializedAsync()
