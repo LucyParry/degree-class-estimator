@@ -12,8 +12,8 @@
         <div class="row">
             <div class="form-group form-group-sm col-md-12">
                 <div class="row">
-                    <label for="txtDescription" class="col-md-3 col-form-label">Code: </label>
-                    <div class="col-md-9">
+                    <label for="txtDescription" class="col-3 col-form-label">Code: </label>
+                    <div class="col-9">
                         <input @bind="newModule.Description" class="form-control" id="txtDescription" placeholder="e.g. S104" type="text" />
                     </div>
                 </div>
@@ -23,8 +23,8 @@
         <div class="row">
             <div class="form-group form-group-sm col-md-12">
                 <div class="row">
-                    <label for="txtPoints" class="col-md-3 col-form-label">Points: </label>
-                    <div class="col-md-9">
+                    <label for="txtPoints" class="col-3 col-form-label">Points: </label>
+                    <div class="col-9">
                         <input @bind="newModule.Points" class="form-control" id="txtPoints" placeholder="Points" type="number" />
                     </div>
                 </div>
@@ -34,8 +34,8 @@
         <div class="row">
             <div class="form-group form-group-sm col-md-12">
                 <div class="row">
-                    <label for="selectLevel" class="col-md-3 col-form-label">Level: </label>
-                    <div class="col-md-9">
+                    <label for="selectLevel" class="col-3 col-form-label">Level: </label>
+                    <div class="col-9">
                         <select @bind="newModule.Level" class="form-control" id="selectLevel">
                             @{
                                 string[] levels = Enum.GetNames(typeof(Level));
@@ -53,8 +53,8 @@
         <div class="row">
             <div class="form-group form-group-sm col-md-12">
                 <div class="row">
-                    <label for="selectGrade" class="col-md-3 col-form-label">Grade: </label>
-                    <div class="col-md-9">
+                    <label for="selectGrade" class="col-3 col-form-label">Grade: </label>
+                    <div class="col-9">
                         <select @bind="newModule.Grade" class="form-control" id="selectGrade">
                             @{
                                 string[] gradeNames = Enum.GetNames(typeof(Grade));
@@ -73,8 +73,8 @@
         <div class="row">
             <div class="form-group form-group-sm col-md-12">
                 <div class="row">
-                    <label for="selectGrade" class="col-md-3 col-form-label">Required: </label>
-                    <div class="col-md-9">
+                    <label for="selectGrade" class="col-3 col-form-label">Required: </label>
+                    <div class="col-9">
                         <input type="checkbox" id="chkCompulsary" @bind="newModule.Compulsary" />
                     </div>
                 </div>
@@ -103,5 +103,4 @@
     {
         OnAddModule.Invoke(newModule);
     }
-
 }

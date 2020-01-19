@@ -55,13 +55,13 @@ namespace HonoursClassEstimator.Tests
         [TestMethod]
         public void Test_Regex()
         {
-            Assert.IsTrue(Regex.IsMatch("tu100_P60L2G0C0", Module.ModuleDescriptionCodePattern));
+            Assert.IsTrue(Regex.IsMatch("tu100_P60L2G5C0", Module.ModuleDescriptionCodePattern));
             Assert.IsTrue(Regex.IsMatch("some description_P120L3G1C1", Module.ModuleDescriptionCodePattern));
             
             Assert.IsFalse(Regex.IsMatch("thing_P120L4G1", Module.ModuleDescriptionCodePattern));
             Assert.IsFalse(Regex.IsMatch("thing", Module.ModuleDescriptionCodePattern));
 
-            MatchCollection matches = Regex.Matches("tu100_P60L2G0C0&s104_P30L3G2C1", Module.ModuleDescriptionCodePattern);
+            MatchCollection matches = Regex.Matches("tu100_P60L2G5C0&s104_P30L3G2C1", Module.ModuleDescriptionCodePattern);
             Assert.IsTrue(matches.Count == 2);
         }
 
@@ -69,7 +69,7 @@ namespace HonoursClassEstimator.Tests
         [TestMethod]
         public void Test_GetModules_ValidDescriptionStrings()
         {
-            List<Module> modules = Degree.GetModules("tu100_P60L2G0C0&s104_P30L3G1C1");
+            List<Module> modules = Degree.GetModules("tu100_P60L2G5C0&s104_P30L3G1C1");
 
             Assert.IsTrue(modules.Count() == 2);
 
@@ -90,7 +90,7 @@ namespace HonoursClassEstimator.Tests
         [TestMethod]
         public void Test_GetModules_InvalidDescriptionString()
         {
-            List<Module> modules = Degree.GetModules("tu100_P60L2G0C0&invalidstring");
+            List<Module> modules = Degree.GetModules("tu100_P60L2G5C0&invalidstring");
             Assert.IsTrue(modules.Count() == 1);
             Assert.IsTrue(modules[0].Description == "tu100");
         }

@@ -99,7 +99,7 @@ namespace HonoursClassEstimator.Tests
         [TestMethod]
         public void Test_GetModules_ValidDescriptionStrings()
         {
-            List<Module> modules = Degree.GetModules("tu100_P60L2G0C0&s104_P30L3G1C1");
+            List<Module> modules = Degree.GetModules("tu100_P60L2G5C0&s104_P30L3G1C1");
 
             Assert.IsTrue(modules.Count() == 2);
 
@@ -120,7 +120,7 @@ namespace HonoursClassEstimator.Tests
         [TestMethod]
         public void Test_GetModules_InvalidDescriptionString()
         {
-            List<Module> modules = Degree.GetModules("tu100_P60L2G0C0&invalidstring");
+            List<Module> modules = Degree.GetModules("tu100_P60L2G5C0&invalidstring");
             Assert.IsTrue(modules.Count() == 1);
             Assert.IsTrue(modules[0].Description == "tu100");
         }

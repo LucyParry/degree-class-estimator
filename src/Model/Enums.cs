@@ -35,7 +35,7 @@ namespace HonoursClassEstimator.Model
         [Description(description: "Grade 4")]
         Grade4 = 4,
         [Description(description: "Transferred")]
-        Transferred = 0
+        Transferred = 5
     }
 
     /// <summary>
