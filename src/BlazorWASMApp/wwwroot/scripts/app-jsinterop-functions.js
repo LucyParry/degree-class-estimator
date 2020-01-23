@@ -11,7 +11,6 @@
 
     clipboardCopy: function () {
         var urlInput = document.getElementById("generated-url");
-
         // get current selection so we can clear it afterwards
         var selection = window.getSelection();
         // select all text in the input and copy
