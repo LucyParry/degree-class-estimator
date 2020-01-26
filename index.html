@@ -37,7 +37,8 @@
                 location.search.slice(1).split('&').forEach(function (qsVar) {
                     var value = qsVar.split('=');
                     queryVars[value[0]] = value.slice(1).join('=').replace(/~and~/g, '&');
-                
+                });
+
                 // if we have a route, restore the original URL with path
                 if (queryVars.route !== undefined) {
                     var restoredUrl = location.pathname.slice(0, -1) + (queryVars.route || '') +
@@ -49,8 +50,13 @@
                     window.history.replaceState(null, null, restoredUrl);
                 }
             }
-        } (window.location))
-        
+        }(window.location));
+
+
+
+
+
+
     </script>
 
 </head>
