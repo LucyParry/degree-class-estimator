@@ -17,6 +17,42 @@
     <script src="_framework/blazor.webassembly.js"></script>
     <script src="scripts/app-jsinterop-functions.js"></script>
 
+    <script type="text/javascript">
+        // This script based upon 'Single Page Apps for GitHub Pages' Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+        // Available at: https://github.com/rafrex/spa-github-pages
+        // with modification for learning purposes
+        // ------------------------------------------------------------------------------------------------------------------------------
+
+        // The query string of the URL is checked for a route variable, which may have been constructed and forwarded
+        // here from 404.html. If present, this script converts it back to a route and adds it to the browsers history,
+        // for the app to use after it has initialised
+
+
+        (function (location) {
+            // if the location has a query string
+            if (location.search) {
+
+                var queryVars = {};
+                // for each query string variable, get the name and value
+                location.search.slice(1).split('&').forEach(function (qsVar) {
+                    var value = qsVar.split('=');
+                    queryVars[value[0]] = value.slice(1).join('=').replace(/~and~/g, '&');
+                
+                // if we have a route, restore the original URL with path
+                if (queryVars.route !== undefined) {
+                    var restoredUrl = location.pathname.slice(0, -1) + (queryVars.route || '') +
+                        (queryVars.query ? ('?' + queryVars.query) : '') +
+                        location.hash;
+
+                    console.log(restoredUrl);
+                    // add resulting URL  it to the browser's history
+                    window.history.replaceState(null, null, restoredUrl);
+                }
+            }
+        } (window.location))
+        
+    </script>
+
 </head>
 <body>
     <app>
