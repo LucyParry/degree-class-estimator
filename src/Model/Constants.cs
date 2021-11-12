@@ -8,19 +8,12 @@
         public static int RequiredQualityAssurancePoints => 60;
 
 
-        public static ClassThresholds QAClassThresholds
+        public static ClassThresholds QAClassThresholds => new ClassThresholds()
         {
-            get
-            {
-                return new ClassThresholds()
-                {
-                    FirstUpperBound = 60,
-                    UpperSecondUpperBound = 120,
-                    LowerSecondUpperBound = 180,
-                    ThirdUpperBound = 240
-                };
-            }
-        
-        }
+            FirstUpperBound = 60,
+            UpperSecondUpperBound = 120,
+            LowerSecondUpperBound = 180,
+            ThirdUpperBound = 240
+        };
     }
 }
