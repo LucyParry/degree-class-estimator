@@ -4,10 +4,10 @@
     <main>
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand ml-4" href="#">
-                    <span class="navbar-title-emoji" @onclick=RotateEmoji>@HeaderEmoji</span>
+                <div class="navbar-brand ml-4">
+                   <i class="navbar-icon @HeaderIconClass" @onclick=RotateHeaderIcon></i>
                     OU Degree Class Estimator
-                </a>
+                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -35,20 +35,20 @@
 
 @code
 {
-    private string? HeaderEmoji { get; set; }
 
-    List<string> availableEmoji = new List<string>() {
-        "🎓", "🐌", "📚", "🧠", "💾", "🐓", "☕", "👽", "💣", "🦍", "🦊", "🌵", "🦄", "🐊", "🐉", "🐳", "🍉", "🥝", "🥑", "🦑", "🍰", "🍺", "🔥"
-    };
+    private List<string> HeaderIconClasses = new List<string>() { "bi-mortarboard-fill", "bi-alarm-fill", "bi-award-fill", "bi-book-fill", "bi-boombox-fill", "bi-cup-fill", "bi-emoji-heart-eyes-fill", "bi-emoji-smile-upside-down-fill", "bi-flower1", "bi-gem", "bi-moon-stars-fill", "bi-sun-fill" };
+
+    private string? HeaderIconClass { get; set; }
+
 
     protected override void OnInitialized()
     {
-        HeaderEmoji = availableEmoji[0];
+        HeaderIconClass = HeaderIconClasses[0];
     }
 
-    void RotateEmoji()
+    void RotateHeaderIcon()
     {
         Random randomGen = new Random();
-        HeaderEmoji = availableEmoji[randomGen.Next(availableEmoji.Count - 1)];
+        HeaderIconClass = HeaderIconClasses[randomGen.Next(HeaderIconClasses.Count - 1)];
     }
 }
