@@ -3,8 +3,8 @@
 namespace HonoursClassEstimator.Model
 {
     /// <summary>
-    /// The classification of a <see cref="Degree"/> using the standard UK First - Third method - Unclassified is default
-    /// for <see cref="Degree"/> objects which haven't yet been calculated
+    /// The classification of a <see cref="Degree"/> using the standard UK First / 2:1 / 2:2 / Third method 
+    /// Unclassified is default for <see cref="Degree"/> objects which haven't yet been calculated
     /// </summary>
     public enum HonoursClass
     {
