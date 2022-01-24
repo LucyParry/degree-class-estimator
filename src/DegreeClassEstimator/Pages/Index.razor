@@ -1,9 +1,42 @@
 ﻿@page "/"
+@page "/{ModulesEncodedString}"
 
-<PageTitle>Index</PageTitle>
+@using HonoursClassEstimator.Model
 
-<h1>Hello, world!</h1>
+@inject StateContainer StateContainer
 
-Welcome to your new app.
+<p>Enter your actual or predicted module details for level 2 and 3 to get an estimate of your overall degree classification</p>
+<div class="row">
+    <div class="col-md-4">
+        <AddModule OnAddModule=StateContainer.AddModule></AddModule>
+    </div>
+    <div class="col-md-8">
+        @*<DegreeView OnRemoveModule=StateContainer.RemoveModule Degree=StateContainer.Degree></DegreeView>*@
+    </div>
+</div>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code
+{
+    [Parameter]
+    public string ModulesEncodedString { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StateContainer.OnChange += StateHasChanged;
+        if (!(ModulesEncodedString is null))
+        {
+            string decodedString = ModulesEncodedString.Base64Decode(System.Text.Encoding.UTF8);
+
+            List<Module> modules = Degree.GetModules(decodedString);
+
+            if (!(modules is null))
+            {
+                foreach (Module module in modules)
+                {
+                    StateContainer.Degree.AddModule(module);
+                }
+            }
+        }
+    }
+
+}

@@ -2,10 +2,10 @@
 
 <div class="page">
     <main>
-        <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark mb-4">
             <div class="container-fluid">
                 <div class="navbar-brand ml-4">
-                   <i class="navbar-icon @HeaderIconClass" @onclick=RotateHeaderIcon></i>
+                    <i class="navbar-icon @HeaderIconClass" @onclick=RotateHeaderIcon></i>
                     OU Degree Class Estimator
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,15 +28,34 @@
         </nav>
 
         <article class="content px-4">
-            @Body
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    @Body
+                </div>
+                <div class="col-md-2"></div>
+
+            </div>
         </article>
     </main>
 </div>
 
 @code
 {
-
-    private List<string> HeaderIconClasses = new List<string>() { "bi-mortarboard-fill", "bi-alarm-fill", "bi-award-fill", "bi-book-fill", "bi-boombox-fill", "bi-cup-fill", "bi-emoji-heart-eyes-fill", "bi-emoji-smile-upside-down-fill", "bi-flower1", "bi-gem", "bi-moon-stars-fill", "bi-sun-fill" };
+    private List<string> HeaderIconClasses = new List<string>() {
+        "bi-mortarboard-fill",
+        "bi-alarm-fill",
+        "bi-award-fill",
+        "bi-book-fill",
+        "bi-boombox-fill",
+        "bi-cup-fill",
+        "bi-emoji-heart-eyes-fill",
+        "bi-emoji-smile-upside-down-fill",
+        "bi-flower1",
+        "bi-gem",
+        "bi-moon-stars-fill",
+        "bi-sun-fill"
+    };
 
     private string? HeaderIconClass { get; set; }
 

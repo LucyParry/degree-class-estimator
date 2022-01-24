@@ -8,24 +8,19 @@ namespace HonoursClassEstimator.Model
     /// </summary>
     public class Module
     {
-        public Module()
-        {
-            Compulsary = false;
-            DoubleWeight = false;
-        }
-
         [Required]
         [MinLength(1, ErrorMessage = "A description, module code or other identifier is required")]
         public string Description { get; set; }
 
         [Required]
-        [Range(1, 120, ErrorMessage = "Number of points invalid - Must be between 1 and 120")]
+        [Range(1, 120, ErrorMessage = "Points must be between 1 and 120")]
         public int Points { get; set; }
 
         [Required]
+        [Range(typeof(Level), nameof(Level.Two), nameof(Level.Three), ErrorMessage = "Select a level")]
         public Level Level { get; set; }
 
-        [Required]
+        [Required, EnumDataType(typeof(Grade))]
         public Grade Grade { get; set; }
 
 
@@ -63,7 +58,7 @@ namespace HonoursClassEstimator.Model
         /// Check the <see cref="Module"/> is valid
         /// </summary>
         /// <returns></returns>
-        public bool IsValid() => (this.Points > 0 && this.Points <= Constants.ModuleMaxPoints);
+        private bool IsValid() => (this.Points > 0 && this.Points <= Constants.ModuleMaxPoints);
 
 
         /// <summary>

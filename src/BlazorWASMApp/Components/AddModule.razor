@@ -2,7 +2,7 @@
 
 <div class="bg-light section-container">
     <div>
-        <h4 class="heading">Add module</h4>
+        <h4>Add module</h4>
     </div>
 
     <EditForm Model="@newModule" OnValidSubmit="@HandleValidSubmit">
@@ -12,7 +12,7 @@
         <div class="row">
             <div class="form-group form-group-sm col-md-12">
                 <div class="row">
-                    <label for="txtDescription" class="col-3 col-form-label">Code: </label>
+                    <label for="txtDescription" class="col-3 col-form-label strong">Code: </label>
                     <div class="col-9">
                         <input @bind="newModule.Description" class="form-control" id="txtDescription" placeholder="e.g. S104" type="text" />
                     </div>

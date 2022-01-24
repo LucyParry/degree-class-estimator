@@ -1,0 +1,202 @@
+﻿@*@using HonoursClassEstimator.Model
+
+@inject HttpClient Http;
+@inject IJSRuntime JSRuntime;
+
+@if (Degree.AllModules.Any())
+{
+    <div class="bg-light section-container">
+
+        <div>
+            <h4 class="heading">Degree view</h4>
+        </div>
+
+        <div>
+            <div class="table-responsive">
+                <table class="table table-sm table-hover table-bordered table-responsive-sm5 result-table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th id="table-head-delete"></th>
+                            <th id="table-head-module">Module</th>
+                            <th id="table-head-level">Level</th>
+                            <th id="table-head-points">Points</th>
+                            <th id="table-head-grade">Grade</th>
+                            <th id="table-head-weighted" width="20%">Weighted</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var module in Degree.AllModules)
+                        {
+                            <tr>
+                                <td style="text-align: center; width: 5%;">
+                                    <button @onclick="(() => OnRemoveModule(module))" type="submit" class="btn btn-light mb-2" title="Remove module">
+                                        <span class="oi oi-circle-x"></span>
+                                    </button>
+                                </td>
+                                <td>
+                                    <div class="row" id="module-description">
+                                        <div class="col-sm-10">
+                                            @module.Description
+                                        </div>
+                                        <div class="col-sm-2">
+                                            @if (module.Compulsary)
+                                            {
+                                                <span class="compulsary">*</span>
+                                            }
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@module.Level</td>
+                                <td>@module.Points</td>
+                                <td>@module.Grade.GetEnumDescription()</td>
+                                <td>
+                                    @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
+                                    {
+                                        if (Degree.CountingModules.Contains(module))
+                                        {
+                                            <a href="#" data-toggle="tooltip" title=@module.FinalWeightedPointsLongDescription class="result-calculation">
+                                                @module.FinalWeightedPointsShortDescription
+                                                <!--<br />-->
+                                                =
+                                                <span class="bold-message">@module.FinalWeightedPoints</span>
+                                            </a>
+                                            if (Degree.QualityAssuranceModules.Contains(module))
+                                            {
+                                                <br />
+                                                <span>(QA: @module.GradeWeightedPointsShortDescription)</span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span>Not required</span>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Total</th>
+                            <th></th>
+                            <th>@Degree.AllModulePoints</th>
+                            <th></th>
+                            <th>
+                                @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
+                                {
+                                    var weightedString = $"{Degree.DegreeWeightedPoints} (QA: {Degree.QualityAssuranceWeightedPoints})";
+                                    @weightedString
+                                }
+                            </th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="section-top-padded">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <button type="submit" @onclick="DoClassify" class="btn btn-info mb-2" disabled=@InvalidForCalculation>
+                            <span class="oi oi-calculator"></span> Estimate
+                        </button>
+                    </div>
+                    <div class="col-sm-8">
+                        @if (Degree.CalculationResult.Errors.Any())
+                        {
+                            <div class="bold-message">
+                                <p class="text-danger">@ErrorString</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                @if (!string.IsNullOrWhiteSpace(HostName))
+                {
+                    <div class="section-top-padded">
+                        <p><strong>Link</strong> - Copy to share or return to this degree later</p>
+                    </div>
+                    <div>
+                        <div>
+                            <div class="row">
+                                <div class="col-md-11">
+                                    @{
+                                        var saveUrl = $"{HostName}{AppState.AppBaseHref}{(Degree.GetModuleCodeString()).Base64Encode(System.Text.Encoding.UTF8)}";
+                                        <input @bind="saveUrl" class="form-control" id="generated-url" placeholder="" type="text" />
+                                    }
+                                </div>
+                                <div class="col-md-1">
+                                    <button class="btn btn-info mb-2" @onclick="DoCopy">
+                                        Copy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <span id="results-section"></span>
+                <div class="section-top-padded">
+                    @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
+                    {
+                        <HonoursClassEstimator.BlazorWASMApp.Components.Result Degree=@Degree></HonoursClassEstimator.BlazorWASMApp.Components.Result>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@code
+{
+    [Parameter] public Degree Degree { get; set; }
+    [Parameter] public Action<Module> OnRemoveModule { get; set; }
+
+    ClassThresholds[] Thresholds;
+    IClassifier Classifier;
+
+    string ErrorString { get; set; }
+    string HostName { get; set; }
+
+    bool InvalidForCalculation
+    {
+        get
+        {
+            return Degree.Validate() == "" ? false : true;
+        }
+    }
+
+    async void DoClassify()
+    {
+        if (!InvalidForCalculation)
+        {
+            Degree.Classify(Classifier);
+
+            if (!Degree.CalculationResult.Success)
+                ErrorString = string.Join(",", Degree.CalculationResult.Errors);
+        }
+
+        string host = await JSRuntime.InvokeAsync<string>("jsInteropFunctions.getLocationOrigin");
+        HostName = host;
+        this.StateHasChanged();
+
+        await JSRuntime.InvokeAsync<string>("jsInteropFunctions.sectionJump", new string[] { "results-section" });
+    }
+
+    async void DoCopy()
+    {
+        await JSRuntime.InvokeAsync<string>("jsInteropFunctions.clipboardCopy");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ErrorString = "";
+        Thresholds = await Http.GetJsonAsync<ClassThresholds[]>("data/thresholds.json");
+        Classifier = new StandardClassifier(Thresholds);
+    }
+
+}
+*@

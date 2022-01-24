@@ -1,0 +1,84 @@
+﻿@using Microsoft.Extensions.Logging
+@using HonoursClassEstimator.Model
+
+@inject ILogger<AddModule> Logger;
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title strong">Add Module</h4>
+
+        <EditForm EditContext="@editContext" OnValidSubmit="@HandleValidSubmit">
+            <DataAnnotationsValidator />
+
+            <div class="mb-3 row">
+                <label for="@newModule.Description" class="col-sm-4 col-form-label">Description</label>
+                <div class="col-sm-8">
+                    <InputText class="form-control" @bind-Value="newModule.Description" />
+                    <ValidationMessage For="@(() => newModule.Description)" />
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="@newModule.Points" class="col-sm-4 col-form-label">Points</label>
+                <div class="col-sm-8">
+                    <InputNumber class="form-control" @bind-Value="newModule.Points" />
+                    <ValidationMessage For="@(() => newModule.Points)" />
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="@newModule.Level" class="col-sm-4 col-form-label">Level</label>
+                <div class="form-check form-check-inline">
+                    <InputRadioGroup @bind-Value="newModule.Level">
+                        @foreach (var level in (Level[])Enum.GetValues(typeof(Level)))
+                        {
+                            <InputRadio class="form-check-input" Value="level"/>
+                            <label class="form-check-label">@level</label>
+                        }
+                    </InputRadioGroup>
+                    <ValidationMessage For="@(() => newModule.Level)" />
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="@newModule.Grade" class="col-sm-4 col-form-label">Grade</label>
+                <div class="col-sm-8">
+                    <InputSelect class="form-select" @bind-Value="newModule.Grade">
+                        <option value="">Select grade...</option>
+                        @{
+                            string[] grades = Enum.GetNames(typeof(Grade));
+                            foreach (string grade in grades)
+                            {
+                                <option value="@grade">@grade</option>
+                            }
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="@(() => newModule.Grade)" />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add</button>
+
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    private Module newModule = new Module();
+    private EditContext? editContext;
+
+    [Parameter]
+    public Action<Module> OnAddModule { get; set; }
+
+    protected override void OnInitialized()
+    {
+        editContext = new EditContext(newModule);
+        editContext.SetFieldCssClassProvider(new BootstrapFieldCssClassProvider());
+    }
+
+    private void HandleValidSubmit()
+    {
+        OnAddModule.Invoke(newModule);
+    }
+}
