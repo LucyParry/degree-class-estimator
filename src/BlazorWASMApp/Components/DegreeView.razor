@@ -1,5 +1,7 @@
-﻿@using HonoursClassEstimator.Model
+﻿@using Microsoft.Extensions.Logging
+@using HonoursClassEstimator.Model
 
+@inject ILogger<AddModule> Logger;
 @inject HttpClient Http;
 @inject IJSRuntime JSRuntime;
 

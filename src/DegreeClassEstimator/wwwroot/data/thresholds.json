@@ -1,0 +1,177 @@
+[
+  {
+    "availableCredit": 240,
+    "firstUpperBound": 630,
+    "upperSecondUpperBound": 900,
+    "lowerSecondUpperBound": 1170,
+    "thirdUpperBound": 1440
+  },
+  {
+    "availableCredit": 235,
+    "firstUpperBound": 621.25,
+    "upperSecondUpperBound": 887.5,
+    "lowerSecondUpperBound": 1153.75,
+    "thirdUpperBound": 1420
+  },
+  {
+    "availableCredit": 230,
+    "firstUpperBound": 612.5,
+    "upperSecondUpperBound": 875,
+    "lowerSecondUpperBound": 1137.5,
+    "thirdUpperBound": 1400
+  },
+  {
+    "availableCredit": 225,
+    "firstUpperBound": 603.75,
+    "upperSecondUpperBound": 862.5,
+    "lowerSecondUpperBound": 1121.25,
+    "thirdUpperBound": 1380
+  },
+  {
+    "availableCredit": 220,
+    "firstUpperBound": 595,
+    "upperSecondUpperBound": 850,
+    "lowerSecondUpperBound": 1105,
+    "thirdUpperBound": 1360
+  },
+  {
+    "availableCredit": 215,
+    "firstUpperBound": 586.25,
+    "upperSecondUpperBound": 837.5,
+    "lowerSecondUpperBound": 1088.75,
+    "thirdUpperBound": 1340
+  },
+  {
+    "availableCredit": 210,
+    "firstUpperBound": 577.5,
+    "upperSecondUpperBound": 825,
+    "lowerSecondUpperBound": 1072.5,
+    "thirdUpperBound": 1320
+  },
+  {
+    "availableCredit": 205,
+    "firstUpperBound": 568.75,
+    "upperSecondUpperBound": 812.5,
+    "lowerSecondUpperBound": 1056.25,
+    "thirdUpperBound": 1300
+  },
+  {
+    "availableCredit": 200,
+    "firstUpperBound": 560,
+    "upperSecondUpperBound": 800,
+    "lowerSecondUpperBound": 1040,
+    "thirdUpperBound": 1280
+  },
+  {
+    "availableCredit": 195,
+    "firstUpperBound": 551.25,
+    "upperSecondUpperBound": 787.5,
+    "lowerSecondUpperBound": 1023.75,
+    "thirdUpperBound": 1260
+  },
+  {
+    "availableCredit": 190,
+    "firstUpperBound": 542.5,
+    "upperSecondUpperBound": 775,
+    "lowerSecondUpperBound": 1007.5,
+    "thirdUpperBound": 1240
+  },
+  {
+    "availableCredit": 185,
+    "firstUpperBound": 533.75,
+    "upperSecondUpperBound": 762.5,
+    "lowerSecondUpperBound": 991.25,
+    "thirdUpperBound": 1220
+  },
+  {
+    "availableCredit": 180,
+    "firstUpperBound": 525,
+    "upperSecondUpperBound": 750,
+    "lowerSecondUpperBound": 975,
+    "thirdUpperBound": 1200
+  },
+  {
+    "availableCredit": 175,
+    "firstUpperBound": 516.25,
+    "upperSecondUpperBound": 737.5,
+    "lowerSecondUpperBound": 958.75,
+    "thirdUpperBound": 1180
+  },
+  {
+    "availableCredit": 170,
+    "firstUpperBound": 507.5,
+    "upperSecondUpperBound": 725,
+    "lowerSecondUpperBound": 942.5,
+    "thirdUpperBound": 1160
+  },
+  {
+    "availableCredit": 165,
+    "firstUpperBound": 498.75,
+    "upperSecondUpperBound": 712.5,
+    "lowerSecondUpperBound": 926.25,
+    "thirdUpperBound": 1140
+  },
+  {
+    "availableCredit": 160,
+    "firstUpperBound": 490,
+    "upperSecondUpperBound": 700,
+    "lowerSecondUpperBound": 910,
+    "thirdUpperBound": 1120
+  },
+  {
+    "availableCredit": 155,
+    "firstUpperBound": 481.25,
+    "upperSecondUpperBound": 687.5,
+    "lowerSecondUpperBound": 893.75,
+    "thirdUpperBound": 1100
+  },
+  {
+    "availableCredit": 150,
+    "firstUpperBound": 472.5,
+    "upperSecondUpperBound": 675,
+    "lowerSecondUpperBound": 877.5,
+    "thirdUpperBound": 1080
+  },
+  {
+    "availableCredit": 145,
+    "firstUpperBound": 463.75,
+    "upperSecondUpperBound": 662.5,
+    "lowerSecondUpperBound": 861.25,
+    "thirdUpperBound": 1060
+  },
+  {
+    "availableCredit": 140,
+    "firstUpperBound": 455,
+    "upperSecondUpperBound": 650,
+    "lowerSecondUpperBound": 845,
+    "thirdUpperBound": 1040
+  },
+  {
+    "availableCredit": 135,
+    "firstUpperBound": 446.25,
+    "upperSecondUpperBound": 637.5,
+    "lowerSecondUpperBound": 828.75,
+    "thirdUpperBound": 1020
+  },
+  {
+    "availableCredit": 130,
+    "firstUpperBound": 437.5,
+    "upperSecondUpperBound": 625,
+    "lowerSecondUpperBound": 812.5,
+    "thirdUpperBound": 1000
+  },
+  {
+    "availableCredit": 125,
+    "firstUpperBound": 428.75,
+    "upperSecondUpperBound": 612.5,
+    "lowerSecondUpperBound": 796.25,
+    "thirdUpperBound": 980
+  },
+  {
+    "availableCredit": 120,
+    "firstUpperBound": 420,
+    "upperSecondUpperBound": 600,
+    "lowerSecondUpperBound": 780,
+    "thirdUpperBound": 960
+  }
+]

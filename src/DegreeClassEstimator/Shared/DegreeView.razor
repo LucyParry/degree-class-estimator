@@ -1,5 +1,7 @@
-﻿@*@using HonoursClassEstimator.Model
+﻿@using Microsoft.Extensions.Logging
+@using HonoursClassEstimator.Model
 
+@inject ILogger<AddModule> Logger;
 @inject HttpClient Http;
 @inject IJSRuntime JSRuntime;
 
@@ -93,7 +95,7 @@
                     </tfoot>
                 </table>
             </div>
-
+@*                   BH
             <div class="section-top-padded">
                 <div class="row">
                     <div class="col-sm-4">
@@ -144,7 +146,7 @@
                         <HonoursClassEstimator.BlazorWASMApp.Components.Result Degree=@Degree></HonoursClassEstimator.BlazorWASMApp.Components.Result>
                     }
                 </div>
-            </div>
+            </div>*@
         </div>
     </div>
 }
@@ -155,26 +157,27 @@
     [Parameter] public Degree Degree { get; set; }
     [Parameter] public Action<Module> OnRemoveModule { get; set; }
 
-    ClassThresholds[] Thresholds;
+    ClassThresholds[]? Thresholds;
     IClassifier Classifier;
 
     string ErrorString { get; set; }
     string HostName { get; set; }
 
-    bool InvalidForCalculation
+    
+
+    protected override async Task OnInitializedAsync()
     {
-        get
-        {
-            return Degree.Validate() == "" ? false : true;
-        }
+        ErrorString = "";
+        Thresholds = await Http.GetFromJsonAsync<ClassThresholds[]>("data/thresholds.json");
+        Classifier = new StandardClassifier(Thresholds);
     }
+
 
     async void DoClassify()
     {
-        if (!InvalidForCalculation)
+        if (Degree.Validate() == "")
         {
             Degree.Classify(Classifier);
-
             if (!Degree.CalculationResult.Success)
                 ErrorString = string.Join(",", Degree.CalculationResult.Errors);
         }
@@ -186,17 +189,11 @@
         await JSRuntime.InvokeAsync<string>("jsInteropFunctions.sectionJump", new string[] { "results-section" });
     }
 
+
     async void DoCopy()
     {
         await JSRuntime.InvokeAsync<string>("jsInteropFunctions.clipboardCopy");
     }
 
-    protected override async Task OnInitializedAsync()
-    {
-        ErrorString = "";
-        Thresholds = await Http.GetJsonAsync<ClassThresholds[]>("data/thresholds.json");
-        Classifier = new StandardClassifier(Thresholds);
-    }
 
 }
-*@
