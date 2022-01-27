@@ -5,7 +5,7 @@
 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title strong mb-4">Add Module</h4>
+        <h4 class="card-title strong mb-4">Add Modules</h4>
 
         <EditForm EditContext="@editContext" OnValidSubmit="@HandleValidSubmit">
             <DataAnnotationsValidator />
@@ -30,7 +30,7 @@
                 <label for="@newModule.Level" class="col-sm-4 col-form-label">Level</label>
                 <div class="col-sm-8 mt-2">
                     <InputRadioGroup @bind-Value="newModule.Level">
-                        @foreach (var level in (Level[])Enum.GetValues(typeof(Level)))
+                        @foreach (Level level in (Level[])Enum.GetValues(typeof(Level)))
                         {
                             <div class="form-check form-check-inline">
                                 <InputRadio class="form-check-input" Value="level" />
@@ -49,9 +49,9 @@
                         <option value="">Select grade...</option>
                         @{
                             string[] grades = Enum.GetNames(typeof(Grade));
-                            foreach (string grade in grades)
+                            foreach (Grade grade in (Grade[])Enum.GetValues(typeof(Grade)))
                             {
-                                <option value="@grade">@grade</option>
+                                <option value="@grade">@grade.GetEnumDescription()</option>
                             }
                         }
                     </InputSelect>
