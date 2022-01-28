@@ -14,10 +14,10 @@
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col"></th>
                         <th scope="col">Module</th>
-                        <th scope="col">Level</th>
                         <th scope="col">Points</th>
+                        <th scope="col">Level</th>
                         <th scope="col">Grade</th>
                         <th scope="col">Weighted</th>
                     </tr>
@@ -27,8 +27,8 @@
                     {
                         <tr>
                             <td>
-                                <button @onclick="(() => OnRemoveModule(module))" type="submit" class="btn btn-sm btn-secondary" title="Remove module">
-                                    <i class="bi bi-trash"></i>
+                                <button @onclick="(() => OnRemoveModule(module))" type="submit" class="btn btn-sm btn-primary" title="Remove module">
+                                    <i class="bi bi-trash mr-2"></i>Remove
                                 </button>
                             </td>
                             <td>
@@ -44,8 +44,8 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>@module.Level</td>
                             <td>@module.Points</td>
+                            <td>@module.Level</td>
                             <td>@module.Grade.GetEnumDescription()</td>
                             <td>
                                 @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
@@ -89,68 +89,57 @@
                     </tr>
                 </tfoot>
             </table>
+
+            <div class="row">
+            <div class="col-sm-4">
+                <button type="submit" @onclick="DoClassify" class="btn btn-primary">Estimate</button>
+            </div>
+            <div class="col-sm-8">
+                @if (ErrorString != String.Empty)
+                {
+                    <div class="bold-message">
+                        <p class="text-danger">@ErrorString</p>
+                    </div>
+                }
+            </div>
+        </div>
+
         </div>
     </div>
 
-
-
-
-
-
-
-
-    @*                   BH
-        <div class="section-top-padded">
-        <div class="row">
-        <div class="col-sm-4">
-        <button type="submit" @onclick="DoClassify" class="btn btn-info mb-2" disabled=@InvalidForCalculation>
-        <span class="oi oi-calculator"></span> Estimate
-        </button>
-        </div>
-        <div class="col-sm-8">
-        @if (Degree.CalculationResult.Errors.Any())
+    <div>
+@*        @if (!string.IsNullOrWhiteSpace(HostName))
         {
-        <div class="bold-message">
-        <p class="text-danger">@ErrorString</p>
-        </div>
-        }
-        </div>
-        </div>
-        </div>
-
-        <div>
-        @if (!string.IsNullOrWhiteSpace(HostName))
-        {
-        <div class="section-top-padded">
-        <p><strong>Link</strong> - Copy to share or return to this degree later</p>
-        </div>
-        <div>
-        <div>
-        <div class="row">
-        <div class="col-md-11">
-        @{
-        var saveUrl = $"{HostName}{AppState.AppBaseHref}{(Degree.GetModuleCodeString()).Base64Encode(System.Text.Encoding.UTF8)}";
-        <input @bind="saveUrl" class="form-control" id="generated-url" placeholder="" type="text" />
-        }
-        </div>
-        <div class="col-md-1">
-        <button class="btn btn-info mb-2" @onclick="DoCopy">
-        Copy
-        </button>
-        </div>
-        </div>
-        </div>
-        </div>
-        }
+            <div class="section-top-padded">
+                <p><strong>Link</strong> - Copy to share or return to this degree later</p>
+            </div>
+            <div>
+                <div>
+                    <div class="row">
+                        <div class="col-md-11">
+                            @{
+                                var saveUrl = $"{HostName}{StateContainer.AppBaseHref}{(Degree.GetModuleCodeString()).Base64Encode(System.Text.Encoding.UTF8)}";
+                                <input @bind="saveUrl" class="form-control" id="generated-url" placeholder="" type="text" />
+                            }
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-info mb-2">
+                                Copy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }*@
 
         <span id="results-section"></span>
         <div class="section-top-padded">
-        @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
-        {
-        <HonoursClassEstimator.BlazorWASMApp.Components.Result Degree=@Degree></HonoursClassEstimator.BlazorWASMApp.Components.Result>
-        }
+            @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
+            {
+                <Result Degree=@Degree></Result>
+            }
         </div>
-        </div>*@
+    </div>
 }
 
 
@@ -175,27 +164,29 @@
     }
 
 
+    bool InvalidForCalculation
+    {
+        get
+        {
+            return !(Degree.Validate() == String.Empty);
+        }
+    }
+
     async void DoClassify()
     {
-        if (Degree.Validate() == "")
+        string validationResult = Degree.Validate();
+        if (validationResult == String.Empty)
         {
             Degree.Classify(Classifier);
             if (!Degree.CalculationResult.Success)
                 ErrorString = string.Join(",", Degree.CalculationResult.Errors);
+        } 
+        else
+        {
+            ErrorString = validationResult;
         }
 
-        string host = await JSRuntime.InvokeAsync<string>("jsInteropFunctions.getLocationOrigin");
-        HostName = host;
         this.StateHasChanged();
-
-        await JSRuntime.InvokeAsync<string>("jsInteropFunctions.sectionJump", new string[] { "results-section" });
     }
-
-
-    async void DoCopy()
-    {
-        await JSRuntime.InvokeAsync<string>("jsInteropFunctions.clipboardCopy");
-    }
-
 
 }
