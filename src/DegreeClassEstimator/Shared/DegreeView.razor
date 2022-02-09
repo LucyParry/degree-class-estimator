@@ -28,21 +28,15 @@
                         <tr>
                             <td>
                                 <button @onclick="(() => OnRemoveModule(module))" type="submit" class="btn btn-sm btn-primary" title="Remove module">
-                                    <i class="bi bi-trash mr-2"></i>Remove
+                                    <i class="bi bi-trash mr-2"></i> Remove
                                 </button>
                             </td>
                             <td>
-                                <div class="row" id="module-description">
-                                    <div class="col-sm-10">
-                                        @module.Description
-                                    </div>
-                                    <div class="col-sm-2">
-                                        @if (module.Compulsary)
-                                        {
-                                            <span class="compulsary">*</span>
-                                        }
-                                    </div>
-                                </div>
+                                <span class="mr-2">@module.Description</span>
+                                @if (module.Compulsary)
+                                {
+                                    <span class="badge bg-primary">Primary</span>
+                                }
                             </td>
                             <td>@module.Points</td>
                             <td>@module.Level</td>
@@ -53,9 +47,7 @@
                                     if (Degree.CountingModules.Contains(module))
                                     {
                                         <a href="#" data-toggle="tooltip" title=@module.FinalWeightedPointsLongDescription class="result-calculation">
-                                            @module.FinalWeightedPointsShortDescription
-                                            =
-                                            <span class="bold-message">@module.FinalWeightedPoints</span>
+                                            @module.FinalWeightedPointsShortDescription = <span class="bold-message">@module.FinalWeightedPoints</span>
                                         </a>
                                         if (Degree.QualityAssuranceModules.Contains(module))
                                         {
@@ -91,46 +83,50 @@
             </table>
 
             <div class="row">
-            <div class="col-sm-4">
-                <button type="submit" @onclick="DoClassify" class="btn btn-primary">Estimate</button>
+                <div class="col-sm-4">
+                    <button type="submit" @onclick="DoClassify" class="btn btn-primary">Estimate</button>
+                </div>
+                <div class="col-sm-8">
+                    @if (Degree.CalculationResult?.Errors.Any() ?? false)
+                    {
+                        @foreach (string error in Degree.CalculationResult.Errors)
+                        {
+                            <span class="validation-message">@error</span>
+
+                            <br />
+                        }
+                        <span class="validation-message">Refer to the instructions for the minimum requirements for calculating your degree class</span>
+                    }
+                </div>
             </div>
-            <div class="col-sm-8">
-                @if (ErrorString != String.Empty)
-                {
-                    <div class="bold-message">
-                        <p class="text-danger">@ErrorString</p>
-                    </div>
-                }
-            </div>
-        </div>
 
         </div>
     </div>
 
     <div>
-@*        @if (!string.IsNullOrWhiteSpace(HostName))
-        {
+        @*        @if (!string.IsNullOrWhiteSpace(HostName))
+            {
             <div class="section-top-padded">
-                <p><strong>Link</strong> - Copy to share or return to this degree later</p>
+            <p><strong>Link</strong> - Copy to share or return to this degree later</p>
             </div>
             <div>
-                <div>
-                    <div class="row">
-                        <div class="col-md-11">
-                            @{
-                                var saveUrl = $"{HostName}{StateContainer.AppBaseHref}{(Degree.GetModuleCodeString()).Base64Encode(System.Text.Encoding.UTF8)}";
-                                <input @bind="saveUrl" class="form-control" id="generated-url" placeholder="" type="text" />
-                            }
-                        </div>
-                        <div class="col-md-1">
-                            <button class="btn btn-info mb-2">
-                                Copy
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <div>
+            <div class="row">
+            <div class="col-md-11">
+            @{
+            var saveUrl = $"{HostName}{StateContainer.AppBaseHref}{(Degree.GetModuleCodeString()).Base64Encode(System.Text.Encoding.UTF8)}";
+            <input @bind="saveUrl" class="form-control" id="generated-url" placeholder="" type="text" />
+            }
             </div>
-        }*@
+            <div class="col-md-1">
+            <button class="btn btn-info mb-2">
+            Copy
+            </button>
+            </div>
+            </div>
+            </div>
+            </div>
+            }*@
 
         <span id="results-section"></span>
         <div class="section-top-padded">
@@ -142,51 +138,25 @@
     </div>
 }
 
-
 @code
 {
     [Parameter] public Degree Degree { get; set; }
     [Parameter] public Action<Module> OnRemoveModule { get; set; }
 
     ClassThresholds[]? Thresholds;
-    IClassifier Classifier;
+    IClassifier? Classifier;
 
-    string ErrorString { get; set; }
-    string HostName { get; set; }
-
-
+    string? HostName { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        ErrorString = "";
         Thresholds = await Http.GetFromJsonAsync<ClassThresholds[]>("data/thresholds.json");
         Classifier = new StandardClassifier(Thresholds);
     }
 
-
-    bool InvalidForCalculation
+    void DoClassify()
     {
-        get
-        {
-            return !(Degree.Validate() == String.Empty);
-        }
-    }
-
-    async void DoClassify()
-    {
-        string validationResult = Degree.Validate();
-        if (validationResult == String.Empty)
-        {
-            Degree.Classify(Classifier);
-            if (!Degree.CalculationResult.Success)
-                ErrorString = string.Join(",", Degree.CalculationResult.Errors);
-        } 
-        else
-        {
-            ErrorString = validationResult;
-        }
-
+        Degree.Classify(Classifier);
         this.StateHasChanged();
     }
-
 }

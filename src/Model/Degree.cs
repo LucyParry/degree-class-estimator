@@ -229,17 +229,13 @@ namespace HonoursClassEstimator.Model
         /// Check a valid credit amount is present
         /// </summary>
         /// <returns></returns>
-        public string Validate()
+        public void Validate()
         {
-            string generalInstruction = "Refer to the instructions for the minimum requirements for calculating your degree class";
-
             if (this.AllModulePoints < Constants.RequiredPointsAboveLevel1)
-                return $"Not enough total module credits - {generalInstruction}";
+                this.CalculationResult.Errors.Add($"Not enough total module credits");
 
             if (this.AllModules?.Where(x => x?.Level == Level.Three).Select(x => x?.Points).Sum() < Constants.RequiredPointsLevel3)
-                return $"Not enough Level 3 credits - {generalInstruction}";
-
-            return "";
+                this.CalculationResult.Errors.Add($"Not enough Level 3 credits");
         }
 
 
@@ -250,14 +246,11 @@ namespace HonoursClassEstimator.Model
         public void Classify(IClassifier classifier)
         {
             ResetClassifications();
-
-            string validationResult = Validate();
-            if (!(validationResult == ""))
+            Validate();
+            if (!CalculationResult.Errors.Any())
             {
-                CalculationResult.Errors.Add(validationResult);
+                classifier.Classify(this);
             }
-            classifier.Classify(this);
-
         }
 
 

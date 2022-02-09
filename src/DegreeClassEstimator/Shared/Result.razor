@@ -112,7 +112,7 @@
     bool qaThresholdsTableVisible { get; set; }
 
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         initialThresholdsTableVisible = false;
         qaThresholdsTableVisible = false;

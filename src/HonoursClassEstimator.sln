@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{F8156DF5-0F58-42E9-A9FB-D3FAF45815A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DegreeClassEstimator", "DegreeClassEstimator\DegreeClassEstimator.csproj", "{22BDD4CB-AF1A-4C6B-B833-43E33D0F389A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DegreeClassEstimator", "DegreeClassEstimator\DegreeClassEstimator.csproj", "{22BDD4CB-AF1A-4C6B-B833-43E33D0F389A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
