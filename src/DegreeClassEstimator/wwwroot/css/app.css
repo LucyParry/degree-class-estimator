@@ -1,6 +1,4 @@
-﻿@import url('bootstrap-icons-1.7.2/bootstrap-icons.css');
-
-:root {
+﻿:root {
     --theme-gradient: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(84,13,121,1) 50%, rgba(2,0,117,1) 100%);
     --theme-dark-purple: rgba(34, 5, 70, 1);
 }
@@ -97,4 +95,13 @@ html, body {
 
 .strong {
     font-weight: bold;
+}
+
+td .table-half-width {
+    width: 50%;
+}
+
+table .thresholds-table {
+    font-size: 0.75rem;
+    line-height: 1.1;
 }
