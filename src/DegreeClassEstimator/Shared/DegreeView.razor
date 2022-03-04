@@ -128,8 +128,7 @@
             </div>
             }*@
 
-        <span id="results-section"></span>
-        <div class="section-top-padded">
+        <div class="mt-2">
             @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
             {
                 <Result Degree=@Degree></Result>
