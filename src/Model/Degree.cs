@@ -254,6 +254,15 @@ namespace HonoursClassEstimator.Model
         }
 
 
+        public bool IsValid 
+        {
+            get
+            {
+                return this.IsCalculated && !this.CalculationResult.Errors.Any();
+            }       
+        }
+
+
         /// <summary>
         /// Get all modules which will count for the degree class from the given list
         /// </summary>
