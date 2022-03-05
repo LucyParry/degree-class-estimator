@@ -97,11 +97,23 @@ html, body {
     font-weight: bold;
 }
 
-td .table-half-width {
-    width: 50%;
+td.table-60 {
+    width: 60%;
 }
 
-table .thresholds-table {
+td.table-40 {
+    width: 40%;
+}
+
+table.thresholds-table {
     font-size: 0.75rem;
-    line-height: 1.1;
+    line-height: 1.2;
+}
+
+.accordion-body.thresholds-accordion {
+    padding: 0.5rem 0.5rem;
+}
+
+.accordion-button.accordion-thresholds-button {
+    padding: 0.5rem 1rem;
 }

@@ -1,9 +1,10 @@
 ﻿@using Microsoft.Extensions.Logging
 @using HonoursClassEstimator.Model
 
+@inject IJSRuntime JSRuntime
 @inject ILogger<AddModule> Logger;
 @inject HttpClient Http;
-@inject IJSRuntime JSRuntime;
+@inject NavigationManager NavManager
 
 @if (Degree.AllModules.Any())
 {
@@ -13,24 +14,19 @@
 
             <table class="table table-striped table-hover table-bordered">
                 <thead>
-                    <tr>
-                        <th scope="col"></th>
+                    <tr>                        
                         <th scope="col">Module</th>
                         <th scope="col">Points</th>
                         <th scope="col">Level</th>
                         <th scope="col">Grade</th>
                         <th scope="col">Weighted</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var module in Degree.AllModules)
                     {
                         <tr>
-                            <td>
-                                <button @onclick="(() => OnRemoveModule(module))" type="submit" class="btn btn-sm btn-primary" title="Remove module">
-                                    <i class="bi bi-trash mr-2"></i> Remove
-                                </button>
-                            </td>
                             <td>
                                 <span class="mr-2">@module.Description</span>
                                 @if (module.Compulsary)
@@ -61,6 +57,11 @@
                                     }
                                 }
                             </td>
+                            <td>
+                                <button @onclick="(() => OnRemoveModule(module))" type="submit" class="btn btn-sm btn-primary" title="Remove module">
+                                    <i class="bi bi-trash mr-2"></i> Remove
+                                </button>
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -71,7 +72,7 @@
                         <th>@Degree.AllModulePoints</th>
                         <th></th>
                         <th>
-                            @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
+                            @if (Degree.IsValid)
                             {
                                 var weightedString = $"{Degree.DegreeWeightedPoints} (QA: {Degree.QualityAssuranceWeightedPoints})";
                                 @weightedString
@@ -92,7 +93,6 @@
                         @foreach (string error in Degree.CalculationResult.Errors)
                         {
                             <span class="validation-message">@error</span>
-
                             <br />
                         }
                         <span class="validation-message">Refer to the instructions for the minimum requirements for calculating your degree class</span>
@@ -104,36 +104,22 @@
     </div>
 
     <div>
-        @*        @if (!string.IsNullOrWhiteSpace(HostName))
+        @if (Degree.IsValid)
+        {
+            @if (!string.IsNullOrWhiteSpace(SaveUri))
             {
-            <div class="section-top-padded">
-            <p><strong>Link</strong> - Copy to share or return to this degree later</p>
-            </div>
-            <div>
-            <div>
-            <div class="row">
-            <div class="col-md-11">
-            @{
-            var saveUrl = $"{HostName}{StateContainer.AppBaseHref}{(Degree.GetModuleCodeString()).Base64Encode(System.Text.Encoding.UTF8)}";
-            <input @bind="saveUrl" class="form-control" id="generated-url" placeholder="" type="text" />
+                <div class="row mt-3">
+                    <label for=@SaveUri>Link - Share or return to this degree later</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" @bind="SaveUri" aria-label="URI" aria-describedby="button-copy-uri" />
+                        <button class="btn btn-outline-secondary" id="button-copy-uri" type="button" @onclick="DoClipboardCopy"><i class="bi bi-clipboard-plus mr-2" id="clipboard-copy-icon"></i></button>
+                    </div>
+                </div>
             }
-            </div>
-            <div class="col-md-1">
-            <button class="btn btn-info mb-2">
-            Copy
-            </button>
-            </div>
-            </div>
-            </div>
-            </div>
-            }*@
-
-        <div class="mt-2">
-            @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
-            {
+            <div class="mt-2">
                 <Result Degree=@Degree></Result>
-            }
-        </div>
+            </div>
+        }
     </div>
 }
 
@@ -145,7 +131,7 @@
     ClassThresholds[]? Thresholds;
     IClassifier? Classifier;
 
-    string? HostName { get; set; }
+    string? SaveUri { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -156,6 +142,12 @@
     void DoClassify()
     {
         Degree.Classify(Classifier);
+        this.SaveUri = Degree.IsValid ? $"{NavManager.Uri}{(Degree.GetModuleCodeString()).Base64Encode(System.Text.Encoding.UTF8)}" : "";
         this.StateHasChanged();
+    }
+
+    async void DoClipboardCopy()
+    {
+        await JSRuntime.InvokeVoidAsync("jsInteropFunctions.clipboardCopy", SaveUri);
     }
 }

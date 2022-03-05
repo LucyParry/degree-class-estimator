@@ -1,7 +1,4 @@
 ﻿window.jsInteropFunctions = {
-    getLocationOrigin: function () {
-        return window.location.origin;
-    },
 
     sectionJump: function (sectionName) {
         if (window.view.width < 901) {
@@ -9,14 +6,23 @@
         }    
     },
 
-    clipboardCopy: function () {
-        var urlInput = document.getElementById("generated-url");
-        // get current selection so we can clear it afterwards
-        var selection = window.getSelection();
-        // select all text in the input and copy
-        urlInput.select();
-        document.execCommand('copy');
-        // reset selection
-        selection.removeAllRanges();
+    clipboardCopy: function (text) {
+        navigator.clipboard.writeText(text).then(function () {
+
+            let button = document.getElementById("button-copy-uri");
+            let icon = document.getElementById("clipboard-copy-icon");
+
+            button.classList.replace("btn-outline-secondary", "btn-success");
+            icon.classList.replace("bi-clipboard-plus", "bi-clipboard-check");
+
+            setTimeout(function () {
+                button.classList.replace("btn-success", "btn-outline-secondary");
+                icon.classList.replace("bi-clipboard-check", "bi-clipboard-plus");
+            }, 2000);
+
+        })
+        .catch(function (error) {
+            alert(error);
+        });
     }
 };
