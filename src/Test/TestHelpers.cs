@@ -1,4 +1,4 @@
-﻿using HonoursClassEstimator.Model;
+﻿using DegreeClassEstimator.Model;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;

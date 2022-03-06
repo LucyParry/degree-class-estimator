@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using HonoursClassEstimator.Model;
+using DegreeClassEstimator.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HonoursClassEstimator.Tests
+namespace DegreeClassEstimator.Tests
 {
     [TestClass]
     public class ModuleTests

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 
-namespace DegreeClassEstimator
+namespace DegreeClassEstimator.Web
 {
     public class BootstrapFieldCssClassProvider : FieldCssClassProvider
     {

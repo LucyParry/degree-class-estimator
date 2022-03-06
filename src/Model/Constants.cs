@@ -1,4 +1,4 @@
-﻿namespace HonoursClassEstimator.Model
+﻿namespace DegreeClassEstimator.Model
 {
     public static class Constants
     {
@@ -8,7 +8,7 @@
         public static int RequiredQualityAssurancePoints => 60;
 
 
-        public static ClassThresholds QAClassThresholds => new ClassThresholds()
+        public static ClassThresholds QAClassThresholds => new()
         {
             FirstUpperBound = 60,
             UpperSecondUpperBound = 120,

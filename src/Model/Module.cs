@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace HonoursClassEstimator.Model
+namespace DegreeClassEstimator.Model
 {
     /// <summary>
     /// Represents a module forming part of a <see cref="Degree"/>  
@@ -106,7 +106,7 @@ namespace HonoursClassEstimator.Model
                 Points = Convert.ToInt32(description[1].Substring(pIndex + 1, (lIndex - 1) - pIndex)),
                 Level = (Level)Convert.ToInt32(description[1].Substring(lIndex + 1, (gIndex - 1) - lIndex)),
                 Grade = (Grade)Convert.ToInt32(description[1].Substring(gIndex + 1, (cIndex - 1) - gIndex)),
-                Compulsary = Convert.ToInt32(description[1].Substring(cIndex + 1)) == 0 ? false : true
+                Compulsary = Convert.ToInt32(description[1].Substring(cIndex + 1)) != 0
             };
         }
 

@@ -1,5 +1,5 @@
 ﻿@using Microsoft.Extensions.Logging
-@using HonoursClassEstimator.Model
+@using DegreeClassEstimator.Model
 
 @inject IJSRuntime JSRuntime
 @inject ILogger<AddModule> Logger;
@@ -125,7 +125,7 @@
 
 @code
 {
-    [Parameter] public Degree Degree { get; set; }
+    [Parameter] public Degree? Degree { get; set; }
     [Parameter] public Action<Module> OnRemoveModule { get; set; }
 
     ClassThresholds[]? Thresholds;

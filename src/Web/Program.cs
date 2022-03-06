@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Web;
 
-namespace DegreeClassEstimator
+namespace DegreeClassEstimator.Web
 {
     internal class Program
     {

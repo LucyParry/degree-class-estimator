@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HonoursClassEstimator.BlazorWASMApp", "BlazorWASMApp\HonoursClassEstimator.BlazorWASMApp.csproj", "{5C5A4F81-90D0-461F-B5EC-7EFD1A6BC72D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{9872982D-2FAA-4A06-929E-02803A4660F3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{F8156DF5-0F58-42E9-A9FB-D3FAF45815A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DegreeClassEstimator", "DegreeClassEstimator\DegreeClassEstimator.csproj", "{22BDD4CB-AF1A-4C6B-B833-43E33D0F389A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{22BDD4CB-AF1A-4C6B-B833-43E33D0F389A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5C5A4F81-90D0-461F-B5EC-7EFD1A6BC72D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C5A4F81-90D0-461F-B5EC-7EFD1A6BC72D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C5A4F81-90D0-461F-B5EC-7EFD1A6BC72D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C5A4F81-90D0-461F-B5EC-7EFD1A6BC72D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9872982D-2FAA-4A06-929E-02803A4660F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9872982D-2FAA-4A06-929E-02803A4660F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9872982D-2FAA-4A06-929E-02803A4660F3}.Release|Any CPU.ActiveCfg = Release|Any CPU

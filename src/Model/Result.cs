@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HonoursClassEstimator.Model
+namespace DegreeClassEstimator.Model
 {
     public interface IResult
     {

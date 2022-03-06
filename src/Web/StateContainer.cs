@@ -1,22 +1,17 @@
-﻿using HonoursClassEstimator.Model;
+﻿using DegreeClassEstimator.Model;
 
-namespace DegreeClassEstimator
+namespace DegreeClassEstimator.Web
 {
     public class StateContainer
     {
-        public Degree Degree { get; set; }
-
-        public static string AppBaseHref => "/degree-class-estimator/";
-
-        public IList<string> Errors { get; set; }
-
-        public event Action OnChange;
-
         public StateContainer()
         {
             Degree = new Degree();
-            Errors = new List<string>();
         }
+
+        public Degree Degree { get; set; }
+
+        public event Action OnChange;
 
 
         public void AddModule(Module newModule)

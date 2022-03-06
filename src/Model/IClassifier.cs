@@ -1,4 +1,4 @@
-﻿namespace HonoursClassEstimator.Model
+﻿namespace DegreeClassEstimator.Model
 {
     public interface IClassifier
     {

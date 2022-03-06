@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Text;
 
-namespace HonoursClassEstimator.Model
+namespace DegreeClassEstimator.Model
 {
     public static class Extensions
     {

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace HonoursClassEstimator.Model
+namespace DegreeClassEstimator.Model
 {
-    
+
     public class StandardClassifier : IClassifier
     {
         public ClassThresholds[] ThresholdsList { get; set; }

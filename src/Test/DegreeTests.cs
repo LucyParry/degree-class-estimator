@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HonoursClassEstimator.Model;
+using DegreeClassEstimator.Model;
 using System.IO;
 using HonoursClassEstimator.Test;
 using System.Linq;
 
-namespace HonoursClassEstimator.Tests
+namespace DegreeClassEstimator.Tests
 {
     [TestClass]
     public class DegreeTests

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace HonoursClassEstimator.Model
+namespace DegreeClassEstimator.Model
 {
     /// <summary>
     /// Represents an Open University undergraduate honours degree for the purposes of calculating its final classification
@@ -82,7 +82,7 @@ namespace HonoursClassEstimator.Model
         {
             get
             {
-                if ((!(InitialClassThresholds is null)) && DegreeWeightedPoints > 0)
+                if (InitialClassThresholds is not null && DegreeWeightedPoints > 0)
                 {
                     if (DegreeWeightedPoints <= InitialClassThresholds.FirstUpperBound) return HonoursClass.First;
                     if (DegreeWeightedPoints <= InitialClassThresholds.UpperSecondUpperBound) return HonoursClass.UpperSecond;

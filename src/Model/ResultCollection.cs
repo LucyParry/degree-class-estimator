@@ -1,8 +1,6 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace HonoursClassEstimator.Model
+namespace DegreeClassEstimator.Model
 {
     public class ResultCollection<T> where T : IEnumerable<IResult>
     {

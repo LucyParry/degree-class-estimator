@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace HonoursClassEstimator.Model
+namespace DegreeClassEstimator.Model
 {
     /// <summary>
     /// The classification of a <see cref="Degree"/> using the standard UK First / 2:1 / 2:2 / Third method 

@@ -1,8 +1,8 @@
-﻿using HonoursClassEstimator.Model;
+﻿using DegreeClassEstimator.Model;
 using System;
 using System.Collections.Generic;
 
-namespace HonoursClassEstimator.Tests
+namespace DegreeClassEstimator.Tests
 {
     
     public static class ModuleTestData
