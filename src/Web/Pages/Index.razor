@@ -5,6 +5,7 @@
 @using DegreeClassEstimator.Web
 
 @inject StateContainer StateContainer
+@inject NavigationManager NavManager
 
 <p>Enter your actual or predicted module details for level 2 and 3 to get an estimate of your overall degree classification</p>
 <div class="row">
@@ -24,18 +25,24 @@
     protected override void OnInitialized()
     {
         StateContainer.OnChange += StateHasChanged;
-        if (!(ModulesEncodedString is null))
+        if (ModulesEncodedString is not null)
         {
-            string decodedString = ModulesEncodedString.Base64Decode(System.Text.Encoding.UTF8);
-
-            List<Module> modules = Degree.GetModules(decodedString);
-
-            if (!(modules is null))
+            try
             {
-                foreach (Module module in modules)
+                string decodedString = ModulesEncodedString.Base64Decode(System.Text.Encoding.UTF8);
+                List<Module> modules = Degree.GetModules(decodedString);
+
+                if (modules is not null)
                 {
-                    StateContainer.Degree.AddModule(module);
+                    foreach (Module module in modules)
+                    {
+                        StateContainer.Degree.AddModule(module);
+                    }
                 }
+            }
+            catch (FormatException ex)
+            {
+                NavManager.NavigateTo($"/{nameof(NotFound)}");
             }
         }
     }
