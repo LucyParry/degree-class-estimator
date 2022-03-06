@@ -38,6 +38,15 @@ jobs:
       - name: Publish
         run: dotnet publish ${{ env.appDirectory }}  -c ${{ env.buildConfiguration }} -o release --no-restore
 
+      # Change <base href="/" /> in index.html from / to include the repo name subdirectory
+      # Otherwise the app tries to fetch resources from the site root (e.g. username.github.io/) rather than the subdirectory which GitHub Pages uses for the route
+      - name: Change base tag in index.html to include the repo name subdirectory
+        run: sed -i 's/<base href="\/" \/>/<base href="\/degree-class-estimator\/" \/>/g' release/wwwroot/index.html
+    
+      # .nojekyll tells GitHub pages to not treat this as a Jekyll project
+      - name: Add .nojekyll file
+        run: touch release/wwwroot/.nojekyll
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
