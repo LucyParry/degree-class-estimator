@@ -1,5 +1,10 @@
 name: CI / CD - .NET Build and GitHub Pages Deploy
 
+env:
+  buildConfiguration: 'Release'
+  solutionRootDirectory: './src/DegreeClassEstimator.sln'
+  appDirectory: './src/Web/Web.csproj'
+
 on:
   push:
     branches: [ main ]
@@ -22,10 +27,13 @@ jobs:
           dotnet-version: 6.0.x
  
       - name: Restore
-        run: dotnet restore ./src/DegreeClassEstimator.sln
+        run: dotnet restore ${{ env.solutionRootDirectory }} 
  
       - name: Build
-        run: dotnet build ./src/DegreeClassEstimator.sln --configuration Release --no-restore
+        run: dotnet build ${{ env.solutionRootDirectory }}  --configuration ${{ env.buildConfiguration }}  --no-restore
  
       - name: Test
-        run: dotnet test ./src/DegreeClassEstimator.sln --no-restore
+        run: dotnet test ${{ env.solutionRootDirectory }} --no-restore
+
+      - name: Publish
+        run: dotnet publish ${{ env.appDirectory }}  -c ${{ env.buildConfiguration }} -o release --no-restore
