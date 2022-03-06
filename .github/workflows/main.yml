@@ -37,3 +37,10 @@ jobs:
 
       - name: Publish
         run: dotnet publish ${{ env.appDirectory }}  -c ${{ env.buildConfiguration }} -o release --no-restore
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages-dev
+          FOLDER: release/wwwroot
