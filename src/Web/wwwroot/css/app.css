@@ -97,6 +97,10 @@ html, body {
     font-weight: bold;
 }
 
+.small-text {
+    font-size: 0.75em;
+}
+
 td.table-60 {
     width: 60%;
 }
