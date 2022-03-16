@@ -1,4 +1,4 @@
-name: dotnet restore / build / test / publish and GitHub Pages deploy
+name: dotnet restore / build / test / publish and gh-pages deploy
 
 env:
   buildConfiguration: 'Release'
@@ -55,5 +55,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages-dev
+          BRANCH: gh-pages
           FOLDER: release/wwwroot
