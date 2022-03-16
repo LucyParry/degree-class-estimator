@@ -1,71 +1,40 @@
-﻿<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>OU Degree Honours Class Estimator (Unofficial)</title>
     <base href="/degree-class-estimator/" />
 
-    <link href="https://fonts.googleapis.com/css?family=Heebo:900|Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="css/site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="manifest.json" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
+</head>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<body>
+
+    <div id="app">
+        <div class="loader">
+            <i class="loader-icon bi-mortarboard-fill circle-icon-background"></i>
+            <div class="loader-text">Loading...</div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
 
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="scripts/app-jsinterop-functions.js"></script>
 
-    <script type="text/javascript">
-        // This script based upon 'Single Page Apps for GitHub Pages' Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
-        // Available at: https://github.com/rafrex/spa-github-pages
-        // with modification for learning purposes
-        // ------------------------------------------------------------------------------------------------------------------------------
-
-        // The query string of the URL is checked for a route variable, which may have been constructed and forwarded
-        // here from 404.html. If present, this script converts it back to a route and adds it to the browsers history,
-        // for the app to use after it has initialised
-
-
-        (function (location) {
-            // if the location has a query string
-            if (location.search) {
-
-                var queryVars = {};
-                // for each query string variable, get the name and value
-                location.search.slice(1).split('&').forEach(function (qsVar) {
-                    var value = qsVar.split('=');
-                    queryVars[value[0]] = value.slice(1).join('=').replace(/~and~/g, '&');
-                });
-
-                // if we have a route, restore the original URL with path
-                if (queryVars.route !== undefined) {
-                    var restoredUrl = location.pathname.slice(0, -1) + (queryVars.route || '') +
-                        (queryVars.query ? ('?' + queryVars.query) : '') +
-                        location.hash;
-
-                    console.log(restoredUrl);
-                    // add resulting URL  it to the browser's history
-                    window.history.replaceState(null, null, restoredUrl);
-                }
-            }
-        }(window.location));
-
-
-
-
-
-
-    </script>
-
-</head>
-<body>
-    <app>
-        <div id="loader">
-            <div id="loader-icon">🎓</div>
-            <div id="loader-text">Loading...</div>
-        </div>
-    </app>
 </body>
+
 </html>
