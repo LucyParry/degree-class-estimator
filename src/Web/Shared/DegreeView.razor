@@ -12,76 +12,79 @@
         <div class="card-body">
             <h4 class="card-title strong mb-4">Your Degree</h4>
 
-            <table class="table table-striped table-hover table-bordered">
-                <thead>
-                    <tr>                        
-                        <th scope="col">Module</th>
-                        <th scope="col">Points</th>
-                        <th scope="col">Level</th>
-                        <th scope="col">Grade</th>
-                        <th scope="col">Weighted</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var module in Degree.AllModules)
-                    {
+            <div class="table-responsive-lg">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
                         <tr>
-                            <td>
-                                <span class="mr-2">@module.Description</span>
-                                @if (module.Compulsary)
-                                {
-                                    <span class="badge bg-primary">Primary</span>
-                                }
-                            </td>
-                            <td>@module.Points</td>
-                            <td>@module.Level</td>
-                            <td>@module.Grade.GetEnumDescription()</td>
-                            <td>
-                                @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
-                                {
-                                    if (Degree.CountingModules.Contains(module))
+                            <th scope="col"></th>
+                            <th scope="col">Module</th>
+                            <th scope="col">Points</th>
+                            <th scope="col">Level</th>
+                            <th scope="col">Grade</th>
+                            <th scope="col">Weighted</th>                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var module in Degree.AllModules)
+                        {
+                            <tr>
+                                <td>
+                                    <button @onclick="(() => OnRemoveModule(module))" type="submit" class="btn btn-sm btn-primary" title="Remove module">
+                                        <i class="bi bi-trash mr-2"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <span class="mr-2">@module.Description</span>
+                                    @if (module.Compulsary)
                                     {
-                                        <a href="#" data-toggle="tooltip" title=@module.FinalWeightedPointsLongDescription class="result-calculation">
-                                            @module.FinalWeightedPointsShortDescription = <span class="bold-message">@module.FinalWeightedPoints</span>
-                                        </a>
-                                        if (Degree.QualityAssuranceModules.Contains(module))
+                                        <span class="badge bg-primary">Primary</span>
+                                    }
+                                </td>
+                                <td>@module.Points</td>
+                                <td>@module.Level</td>
+                                <td>@module.Grade.GetEnumDescription()</td>
+                                <td>
+                                    @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
+                                    {
+                                        if (Degree.CountingModules.Contains(module))
                                         {
-                                            <br />
-                                            <span>(QA: @module.GradeWeightedPointsShortDescription)</span>
+                                            <a href="#" data-toggle="tooltip" title=@module.FinalWeightedPointsLongDescription class="result-calculation">
+                                                @module.FinalWeightedPointsShortDescription = <span class="bold-message">@module.FinalWeightedPoints</span>
+                                            </a>
+                                            if (Degree.QualityAssuranceModules.Contains(module))
+                                            {
+                                                <br />
+                                                <span>(QA: @module.GradeWeightedPointsShortDescription)</span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span>Not required</span>
                                         }
                                     }
-                                    else
-                                    {
-                                        <span>Not required</span>
-                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Total</th>
+                            <th></th>
+                            <th>@Degree.AllModulePoints</th>
+                            <th></th>
+                            <th>
+                                @if (Degree.IsValid)
+                                {
+                                    var weightedString = $"{Degree.DegreeWeightedPoints} (QA: {Degree.QualityAssuranceWeightedPoints})";
+                                    @weightedString
                                 }
-                            </td>
-                            <td>
-                                <button @onclick="(() => OnRemoveModule(module))" type="submit" class="btn btn-sm btn-primary" title="Remove module">
-                                    <i class="bi bi-trash mr-2"></i> Remove
-                                </button>
-                            </td>
+                            </th>
+                            <th></th>
                         </tr>
-                    }
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Total</th>
-                        <th></th>
-                        <th>@Degree.AllModulePoints</th>
-                        <th></th>
-                        <th>
-                            @if (Degree.IsValid)
-                            {
-                                var weightedString = $"{Degree.DegreeWeightedPoints} (QA: {Degree.QualityAssuranceWeightedPoints})";
-                                @weightedString
-                            }
-                        </th>
-                        <th></th>
-                    </tr>
-                </tfoot>
-            </table>
+                    </tfoot>
+                </table>
+
+            </div>
 
             <div class="row">
                 <div class="col-sm-4">
