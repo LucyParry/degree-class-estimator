@@ -1,8 +1,14 @@
-﻿## 🎓 <a href="https://lucyparry.github.io/degree-class-estimator/">Another OU Degree Class Estimator</a>
+﻿## <a href="https://lucyparry.github.io/degree-class-estimator/">Completely Unofficial OU Degree Class Estimator</a>
 
-A simple web application to help <a href="https://www.open.ac.uk">Open University</a> students work out the class of UK undergraduate honours degree they will be awarded.
+![example workflow](https://github.com/LucyParry/degree-class-estimator/actions/workflows/main.yml/badge.svg)
 
-Made to test out <a href="https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor">Blazor WebAssembly</a>, an interesting new addition to <a href="https://dotnet.microsoft.com/apps/aspnet">ASP.NET</a> which uses WebAssembly to let you write web apps with C# and .NET on the client side.
+A simple web application to help <a href="https://www.open.ac.uk">Open University</a> students work out the class of UK undergraduate honours degree they will be awarded. 
+
+Made with <a href="https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor">ASP.NET Blazor WebAssembly</a> and served up fresh on GitHub Pages from the `gh-pages` branch.
+
+### Building
+
+You'll need 
 
 #### My notes on how Blazor WebAssembly apps work as static sites and how to make the routing work on GitHub pages for when I forget
 
