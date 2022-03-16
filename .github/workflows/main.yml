@@ -1,4 +1,4 @@
-name: CI / CD - .NET Build and GitHub Pages Deploy
+name: dotnet restore / build / test / publish and GitHub Pages deploy
 
 env:
   buildConfiguration: 'Release'
