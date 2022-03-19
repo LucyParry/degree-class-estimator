@@ -121,3 +121,18 @@ table.thresholds-table {
 .accordion-button.accordion-thresholds-button {
     padding: 0.5rem 1rem;
 }
+
+.btn-theme {
+    color: #fff;
+    background-color: var(--theme-dark-purple);
+    border-color: var(--theme-dark-purple);
+}
+
+.alert-sm {
+    padding: 0.4rem 0.75rem;
+}
+
+.alert-sm h5 {
+    margin-bottom: 0.1rem;
+}
+

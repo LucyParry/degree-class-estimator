@@ -120,7 +120,7 @@ namespace DegreeClassEstimator.Model
         /// <summary>
         /// Short numerical description of the grade weighted points
         /// </summary>
-        public string GradeWeightedPointsShortDescription => $"{Points} x {(int)Grade}";
+        public string GradeWeightedPointsShortDescription => $"{Points} × {(int)Grade}";
 
 
         /// <summary>
@@ -130,8 +130,8 @@ namespace DegreeClassEstimator.Model
         {
             get
             {
-                string doubleWeight = DoubleWeight ? "2 x " : "";
-                string gradeString = this.Grade == Grade.Transferred ? "Transferred" : $"x {(int)Grade}";
+                string doubleWeight = DoubleWeight ? "2 × " : "";
+                string gradeString = this.Grade == Grade.Transferred ? "Transferred" : $"× {(int)Grade}";
                 return $"{doubleWeight}({Points} {gradeString})";
             }
         }
@@ -143,12 +143,12 @@ namespace DegreeClassEstimator.Model
         {
             get
             {
-                string doubleWeight = DoubleWeight ? ", double weighted as this is a Level 3 module" : "";
+                string doubleWeight = DoubleWeight ? ", double weighted for Level 3" : "";
                 if (this.Grade == Grade.Transferred)
                 {
                     return $"{Points} transferred module points";
                 }
-                return $"{Points} module points, multiplied by {(int)Grade} for grade {(int)Grade}{doubleWeight}";
+                return $"{Points} module points, multiplied by {(int)Grade} (Grade {(int)Grade}){doubleWeight}";
             }
         }
     }
