@@ -1,6 +1,7 @@
 ﻿:root {
     --theme-gradient: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(84,13,121,1) 50%, rgba(2,0,117,1) 100%);
-    --theme-dark-purple: rgba(34, 5, 70, 1);
+    --theme-dark-purple: rgba(43, 6, 78, 1);
+    --theme-mid-purple: rgba(78, 12, 115, 1);
 }
 
 html, body {
@@ -81,7 +82,11 @@ html, body {
 
 .navbar-icon {
     font-size: 1.5rem;
-    padding-right: 1rem;
+    padding-right: 0.5rem;
+}
+
+.navbar-brand {
+    margin-right: 0.5rem;
 }
 
 /* The <ValidationMessage> Blazor component always uses its own '.validation-message' class and doesn't allow override 
@@ -125,6 +130,12 @@ table.thresholds-table {
 .btn-theme {
     color: #fff;
     background-color: var(--theme-dark-purple);
+    border-color: var(--theme-dark-purple);
+}
+
+.btn-theme:hover {
+    color: #fff;
+    background-color: var(--theme-mid-purple);
     border-color: var(--theme-dark-purple);
 }
 
