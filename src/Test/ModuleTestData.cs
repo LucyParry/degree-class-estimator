@@ -26,7 +26,7 @@ namespace DegreeClassEstimator.Tests
                     {
                         modules.Add(new Module
                         {
-                            Description = $"P{pointValue}L{i}G{j}C0",
+                            Code = $"P{pointValue}L{i}G{j}C0",
                             Points = pointValue,
                             Level = (Level)i,
                             Grade = (Grade)j,
@@ -38,7 +38,7 @@ namespace DegreeClassEstimator.Tests
 
             modules.Add(new Module
             {
-                Description = "InvalidPoints",
+                Code = "InvalidPoints",
                 Points = 99999999,
                 Level = Level.Three,
                 Grade = Grade.Transferred,

@@ -8,9 +8,8 @@ namespace DegreeClassEstimator.Model
     /// </summary>
     public class Module
     {
-        [Required]
-        [MinLength(1, ErrorMessage = "A description, module code or other identifier is required")]
-        public string Description { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "A description, module code or other identifier is required")]
+        public string Code { get; set; }
 
         [Required]
         [Range(1, 120, ErrorMessage = "Points must be between 1 and 120")]
@@ -44,7 +43,7 @@ namespace DegreeClassEstimator.Model
         {
             var module = new Module
             {
-                Description = this.Description,
+                Code = this.Code,
                 Grade = this.Grade,
                 Level = this.Level,
                 Points = this.Points,
@@ -102,7 +101,7 @@ namespace DegreeClassEstimator.Model
 
             return new Module()
             {
-                Description = description[0],
+                Code = description[0],
                 Points = Convert.ToInt32(description[1].Substring(pIndex + 1, (lIndex - 1) - pIndex)),
                 Level = (Level)Convert.ToInt32(description[1].Substring(lIndex + 1, (gIndex - 1) - lIndex)),
                 Grade = (Grade)Convert.ToInt32(description[1].Substring(gIndex + 1, (cIndex - 1) - gIndex)),
@@ -114,7 +113,7 @@ namespace DegreeClassEstimator.Model
         /// <summary>
         /// Short code which represents the details of the <see cref="Module"/>
         /// </summary>
-        public string ModuleDescriptionCode => $"{Description}_P{Points}L{(int)Level}G{(int)Grade}C{(Compulsary ? 1 : 0)}";
+        public string ModuleDescriptionCode => $"{Code}_P{Points}L{(int)Level}G{(int)Grade}C{(Compulsary ? 1 : 0)}";
 
 
         /// <summary>

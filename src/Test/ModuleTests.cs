@@ -22,7 +22,7 @@ namespace DegreeClassEstimator.Tests
         [TestMethod]
         public void Test_ValidModule_Standard_GradeWeightedPoints()
         {
-            Module module = this.TestModules.FirstOrDefault(x => x.Description == "P60L2G3C0");
+            Module module = this.TestModules.FirstOrDefault(x => x.Code == "P60L2G3C0");
             Assert.AreEqual(60 * 3, module.GradeWeightedPoints);
         }
 
@@ -30,7 +30,7 @@ namespace DegreeClassEstimator.Tests
         [TestMethod]
         public void Test_ValidModule_Standard_FinalWeightedPoints()
         {
-            Module module = this.TestModules.FirstOrDefault(x => x.Description == "P30L3G2C0");
+            Module module = this.TestModules.FirstOrDefault(x => x.Code == "P30L3G2C0");
             module.DoubleWeight = true;
             Assert.AreEqual((30 * 2) * 2, module.FinalWeightedPoints);
         }
@@ -39,7 +39,7 @@ namespace DegreeClassEstimator.Tests
         [TestMethod]
         public void Test_InvalidModule_GradeWeightedPoints()
         {
-            Module module = this.TestModules.FirstOrDefault(x => x.Description == "InvalidPoints");
+            Module module = this.TestModules.FirstOrDefault(x => x.Code == "InvalidPoints");
             Assert.AreEqual(-1, module.GradeWeightedPoints);
         }
 
@@ -47,7 +47,7 @@ namespace DegreeClassEstimator.Tests
         [TestMethod]
         public void Test_InvalidModule_FinalWeightedPoints()
         {
-            Module module = this.TestModules.FirstOrDefault(x => x.Description == "InvalidPoints");
+            Module module = this.TestModules.FirstOrDefault(x => x.Code == "InvalidPoints");
             Assert.AreEqual(-1, module.FinalWeightedPoints);
         }
 
@@ -73,13 +73,13 @@ namespace DegreeClassEstimator.Tests
 
             Assert.IsTrue(modules.Count() == 2);
 
-            Assert.IsTrue(modules[0].Description == "tu100");
+            Assert.IsTrue(modules[0].Code == "tu100");
             Assert.IsTrue(modules[0].Points == 60);
             Assert.IsTrue(modules[0].Level == Level.Two);
             Assert.IsTrue(modules[0].Grade == Grade.Transferred);
             Assert.IsFalse(modules[0].Compulsary);
             
-            Assert.IsTrue(modules[1].Description == "s104");
+            Assert.IsTrue(modules[1].Code == "s104");
             Assert.IsTrue(modules[1].Points == 30);
             Assert.IsTrue(modules[1].Level == Level.Three);
             Assert.IsTrue(modules[1].Grade == Grade.Distinction);
@@ -92,7 +92,7 @@ namespace DegreeClassEstimator.Tests
         {
             List<Module> modules = Degree.GetModules("tu100_P60L2G5C0&invalidstring");
             Assert.IsTrue(modules.Count() == 1);
-            Assert.IsTrue(modules[0].Description == "tu100");
+            Assert.IsTrue(modules[0].Code == "tu100");
         }
     }
 }

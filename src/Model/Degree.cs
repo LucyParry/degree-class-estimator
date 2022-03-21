@@ -278,11 +278,11 @@ namespace DegreeClassEstimator.Model
                     var nextModuleInitialPoints = nextModule.Points;
                     if (nextModule.Points + CurrentCountingModulePoints > maxPoints)
                     {
-                        nextModule.Description += " (Partial)";
+                        nextModule.Code += " (Partial)";
                         nextModule.Points = (maxPoints - CurrentCountingModulePoints);
                         AllModules.Add(new Module()
                         {
-                            Description = nextModule.Description,
+                            Code = nextModule.Code,
                             Points = nextModuleInitialPoints - nextModule.Points,
                             Level = nextModule.Level,
                             Compulsary = nextModule.Compulsary,

@@ -12,10 +12,10 @@
             <DataAnnotationsValidator />
 
             <div class="mb-3 row">
-                <label for="@newModule.Description" class="col-sm-3 col-form-label">Description</label>
+                <label for="@newModule.Code" class="col-sm-3 col-form-label">Code</label>
                 <div class="col-sm-9">
-                    <InputText class="form-control" @bind-Value="newModule.Description" />
-                    <ValidationMessage For="@(() => newModule.Description)" />
+                    <InputText class="form-control" @bind-Value="newModule.Code" />
+                    <ValidationMessage For="@(() => newModule.Code)" />
                 </div>
             </div>
 

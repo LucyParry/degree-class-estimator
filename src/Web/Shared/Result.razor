@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title strong">Initial classification</h5>
-                        <p class="card-text">Your weighted total points is <span class="strong">@Degree.DegreeWeightedPoints</span>, giving an initial classification of - <span class="strong">@Degree.InitialClass.GetEnumDescription()</span>
+                        <p class="card-text">Your weighted total points is <span class="strong">@Degree.DegreeWeightedPoints</span>, giving an initial classification of - <br/><span class="strong">@Degree.InitialClass.GetEnumDescription()</span>
                         </p>
 
                         <div class="accordion" id="accordion-initial-thresholds">
@@ -20,8 +20,7 @@
                                 </h3>
                                 <div id="initial-thresholds" class="accordion-collapse collapse" aria-labelledby="accordion-initial-thresholds-header" data-bs-parent="#accordion-initial-thresholds">
                                     <div class="accordion-body thresholds-accordion">
-
-                                        <table class="table table-sm thresholds-table">
+                                        <table class="table table-sm thresholds-table mt-2">
                                             <tr>
                                                 <td class="table-60">@HonoursClass.First.GetEnumDescription()</td>
                                                 <td class="table-40">@Degree.InitialClassThresholds.FirstUpperBound or less</td>
@@ -50,7 +49,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title strong">Quality assurance</h5>
-                        <p>Your best 60 credits at Level 3 (weighted total <span class="bold-message">@Degree.QualityAssuranceWeightedPoints</span>) indicate a QA class of - <span class="strong">@Degree.QualityAssuranceClass.GetEnumDescription()</span>
+                        <p>Your best 60 credits at Level 3 (weighted total <span class="bold-message">@Degree.QualityAssuranceWeightedPoints</span>) indicate a QA class of - <br/><span class="strong">@Degree.QualityAssuranceClass.GetEnumDescription()</span>
                         </p>
 
                         <div class="accordion" id="accordion-qa-thresholds">
@@ -63,7 +62,7 @@
                                 <div id="qa-thresholds" class="accordion-collapse collapse" aria-labelledby="accordion-qa-thresholds-header" data-bs-parent="#accordion-qa-thresholds">
                                     <div class="accordion-body thresholds-accordion">
 
-                                        <table class="table table-sm thresholds-table">
+                                        <table class="table table-sm thresholds-table mt-2">
                                             <tr>
                                                 <td class="table-60">@HonoursClass.First.GetEnumDescription()</td>
                                                 <td class="table-40">@Constants.QAClassThresholds.FirstUpperBound or less</td>
