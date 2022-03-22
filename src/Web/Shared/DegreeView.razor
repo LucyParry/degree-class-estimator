@@ -117,7 +117,7 @@
         </div>
     </div>
 
-    <div>
+    <div id="results-section">
         @if (Degree.IsValid)
         {
             @if (!string.IsNullOrWhiteSpace(SaveUri))
@@ -153,11 +153,13 @@
         Classifier = new StandardClassifier(Thresholds);
     }
 
-    void DoClassify()
+    async void DoClassify()
     {
         Degree.Classify(Classifier);
         this.SaveUri = Degree.IsValid ? $"{NavManager.Uri}{(Degree.GetModuleCodeString()).Base64Encode(System.Text.Encoding.UTF8)}" : "";
         this.StateHasChanged();
+
+         await JSRuntime.InvokeVoidAsync("jsInteropFunctions.sectionJump", "results-section");
     }
 
     async void DoClipboardCopy()

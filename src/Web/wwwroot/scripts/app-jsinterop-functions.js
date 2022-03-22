@@ -1,8 +1,9 @@
 ﻿window.jsInteropFunctions = {
 
     sectionJump: function (sectionName) {
-        if (window.view.width < 901) {
+        if (window.innerWidth < 901) {
             window.location.hash = sectionName;
+            document.getElementById(sectionName).scrollIntoView();
         }    
     },
 
