@@ -20,35 +20,35 @@ namespace DegreeClassEstimator.Tests
 
 
         [TestMethod]
-        public void Test_ValidModule_Standard_GradeWeightedPoints()
+        public void Test_ValidModule_Standard_GradeWeightedCredits()
         {
             Module module = this.TestModules.FirstOrDefault(x => x.Code == "P60L2G3C0");
-            Assert.AreEqual(60 * 3, module.GradeWeightedPoints);
+            Assert.AreEqual(60 * 3, module.GradeWeightedCredits);
         }
 
 
         [TestMethod]
-        public void Test_ValidModule_Standard_FinalWeightedPoints()
+        public void Test_ValidModule_Standard_FinalWeightedCredits()
         {
             Module module = this.TestModules.FirstOrDefault(x => x.Code == "P30L3G2C0");
             module.DoubleWeight = true;
-            Assert.AreEqual((30 * 2) * 2, module.FinalWeightedPoints);
+            Assert.AreEqual((30 * 2) * 2, module.FinalWeightedCredits);
         }
 
 
         [TestMethod]
-        public void Test_InvalidModule_GradeWeightedPoints()
+        public void Test_InvalidModule_GradeWeightedCredits()
         {
-            Module module = this.TestModules.FirstOrDefault(x => x.Code == "InvalidPoints");
-            Assert.AreEqual(-1, module.GradeWeightedPoints);
+            Module module = this.TestModules.FirstOrDefault(x => x.Code == "InvalidCredits");
+            Assert.AreEqual(-1, module.GradeWeightedCredits);
         }
 
 
         [TestMethod]
-        public void Test_InvalidModule_FinalWeightedPoints()
+        public void Test_InvalidModule_FinalWeightedCredits()
         {
-            Module module = this.TestModules.FirstOrDefault(x => x.Code == "InvalidPoints");
-            Assert.AreEqual(-1, module.FinalWeightedPoints);
+            Module module = this.TestModules.FirstOrDefault(x => x.Code == "InvalidCredits");
+            Assert.AreEqual(-1, module.FinalWeightedCredits);
         }
 
 
@@ -74,13 +74,13 @@ namespace DegreeClassEstimator.Tests
             Assert.IsTrue(modules.Count() == 2);
 
             Assert.IsTrue(modules[0].Code == "tu100");
-            Assert.IsTrue(modules[0].Points == 60);
+            Assert.IsTrue(modules[0].Credits == 60);
             Assert.IsTrue(modules[0].Level == Level.Two);
             Assert.IsTrue(modules[0].Grade == Grade.Transferred);
             Assert.IsFalse(modules[0].Compulsory);
             
             Assert.IsTrue(modules[1].Code == "s104");
-            Assert.IsTrue(modules[1].Points == 30);
+            Assert.IsTrue(modules[1].Credits == 30);
             Assert.IsTrue(modules[1].Level == Level.Three);
             Assert.IsTrue(modules[1].Grade == Grade.Distinction);
             Assert.IsTrue(modules[1].Compulsory);

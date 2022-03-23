@@ -34,9 +34,9 @@ namespace DegreeClassEstimator.Model
         public IList<Module> AllModules { get; set; }
 
         /// <summary>
-        /// The sum of the points value of every <see cref="Module"/> associated with the <see cref="Degree"/>
+        /// The sum of the Credits value of every <see cref="Module"/> associated with the <see cref="Degree"/>
         /// </summary>
-        public int AllModulePoints => this.AllModules?.Select(x => x?.Points).Sum() ?? 0;
+        public int AllModuleCredits => this.AllModules?.Select(x => x?.Credits).Sum() ?? 0;
 
         /// <summary>
         /// Each module that will count towards the <see cref="Degree"/>
@@ -44,9 +44,9 @@ namespace DegreeClassEstimator.Model
         public IList<Module> CountingModules { get; set; }
 
         /// <summary>
-        /// The sum of the points for each of the <see cref="CountingModules"/>
+        /// The sum of the Credits for each of the <see cref="CountingModules"/>
         /// </summary>
-        public int CurrentCountingModulePoints => this.CountingModules?.Select(x => x?.Points).Sum() ?? 0;
+        public int CurrentCountingModuleCredits => this.CountingModules?.Select(x => x?.Credits).Sum() ?? 0;
 
         /// <summary>
         /// The <see cref="Module"/> objects that will be used in the 'Quality Assurance' calculation
@@ -54,7 +54,7 @@ namespace DegreeClassEstimator.Model
         public IList<Module> QualityAssuranceModules { get; set; }
 
         /// <summary>
-        /// A <see cref="ClassThresholds"/> object representing the points threshold for each classification
+        /// A <see cref="ClassThresholds"/> object representing the Credits threshold for each classification
         /// </summary>
         public ClassThresholds InitialClassThresholds { get; set; }
 
@@ -62,32 +62,32 @@ namespace DegreeClassEstimator.Model
 
 
         /// <summary>
-        /// The sum of the points value of each <see cref="Module"/> which has been counted towards the <see cref="Degree"/> and is not transferred credit
+        /// The sum of the Credits value of each <see cref="Module"/> which has been counted towards the <see cref="Degree"/> and is not transferred credit
         /// </summary>
-        public int CountingModulePointsForClassification
+        public int CountingModuleCreditsForClassification
         {
             get
             {
                 var sum = this.CountingModules?
                     .Where(x => x.Grade != Grade.Transferred)
-                    .Select(x => x?.Points).Sum();
+                    .Select(x => x?.Credits).Sum();
                 return Convert.ToInt32(sum);
             }
         }
 
         /// <summary>
-        /// The 'initial' honours classification based on the <see cref="DegreeWeightedPoints"/> and <see cref="ClassThresholds"/> 
+        /// The 'initial' honours classification based on the <see cref="DegreeWeightedCredits"/> and <see cref="ClassThresholds"/> 
         /// </summary>
         public HonoursClass InitialClass
         {
             get
             {
-                if (InitialClassThresholds is not null && DegreeWeightedPoints > 0)
+                if (InitialClassThresholds is not null && DegreeWeightedCredits > 0)
                 {
-                    if (DegreeWeightedPoints <= InitialClassThresholds.FirstUpperBound) return HonoursClass.First;
-                    if (DegreeWeightedPoints <= InitialClassThresholds.UpperSecondUpperBound) return HonoursClass.UpperSecond;
-                    if (DegreeWeightedPoints <= InitialClassThresholds.LowerSecondUpperBound) return HonoursClass.LowerSecond;
-                    if (DegreeWeightedPoints <= InitialClassThresholds.ThirdUpperBound) return HonoursClass.Third;
+                    if (DegreeWeightedCredits <= InitialClassThresholds.FirstUpperBound) return HonoursClass.First;
+                    if (DegreeWeightedCredits <= InitialClassThresholds.UpperSecondUpperBound) return HonoursClass.UpperSecond;
+                    if (DegreeWeightedCredits <= InitialClassThresholds.LowerSecondUpperBound) return HonoursClass.LowerSecond;
+                    if (DegreeWeightedCredits <= InitialClassThresholds.ThirdUpperBound) return HonoursClass.Third;
                 }
                 return HonoursClass.Unclassified;
             }
@@ -101,12 +101,12 @@ namespace DegreeClassEstimator.Model
         {
             get
             {
-                if (QualityAssuranceWeightedPoints > 0)
+                if (QualityAssuranceWeightedCredits > 0)
                 {
-                    if (QualityAssuranceWeightedPoints <= Constants.QAClassThresholds.FirstUpperBound) return HonoursClass.First;
-                    if (QualityAssuranceWeightedPoints <= Constants.QAClassThresholds.UpperSecondUpperBound) return HonoursClass.UpperSecond;
-                    if (QualityAssuranceWeightedPoints <= Constants.QAClassThresholds.LowerSecondUpperBound) return HonoursClass.LowerSecond;
-                    if (QualityAssuranceWeightedPoints <= Constants.QAClassThresholds.ThirdUpperBound) return HonoursClass.Third;
+                    if (QualityAssuranceWeightedCredits <= Constants.QAClassThresholds.FirstUpperBound) return HonoursClass.First;
+                    if (QualityAssuranceWeightedCredits <= Constants.QAClassThresholds.UpperSecondUpperBound) return HonoursClass.UpperSecond;
+                    if (QualityAssuranceWeightedCredits <= Constants.QAClassThresholds.LowerSecondUpperBound) return HonoursClass.LowerSecond;
+                    if (QualityAssuranceWeightedCredits <= Constants.QAClassThresholds.ThirdUpperBound) return HonoursClass.Third;
                 }
                 return HonoursClass.Unclassified;
             }
@@ -158,13 +158,13 @@ namespace DegreeClassEstimator.Model
         /// <summary>
         /// 
         /// </summary>
-        public int DegreeWeightedPoints
+        public int DegreeWeightedCredits
         {
             get
             {
                 var sum = this.CountingModules?
                     .Where(x => x.Grade != Grade.Transferred)
-                    .Select(x => x?.FinalWeightedPoints).Sum();
+                    .Select(x => x?.FinalWeightedCredits).Sum();
                 return sum ?? 0;
             }
         }
@@ -172,13 +172,13 @@ namespace DegreeClassEstimator.Model
         /// <summary>
         /// 
         /// </summary>
-        public int QualityAssuranceWeightedPoints
+        public int QualityAssuranceWeightedCredits
         {
             get
             {
                 var sum = this.QualityAssuranceModules?
                     .Where(x => x.Grade != Grade.Transferred)
-                    .Select(x => x?.GradeWeightedPoints).Sum();
+                    .Select(x => x?.GradeWeightedCredits).Sum();
                 return sum ?? 0;
             }
         }
@@ -231,10 +231,10 @@ namespace DegreeClassEstimator.Model
         /// <returns></returns>
         public void Validate()
         {
-            if (this.AllModulePoints < Constants.RequiredPointsAboveLevel1)
+            if (this.AllModuleCredits < Constants.RequiredCreditsAboveLevel1)
                 this.CalculationResult.Errors.Add($"Not enough total module credits");
 
-            if (this.AllModules?.Where(x => x?.Level == Level.Three).Select(x => x?.Points).Sum() < Constants.RequiredPointsLevel3)
+            if (this.AllModules?.Where(x => x?.Level == Level.Three).Select(x => x?.Credits).Sum() < Constants.RequiredCreditsLevel3)
                 this.CalculationResult.Errors.Add($"Not enough Level 3 credits");
         }
 
@@ -267,23 +267,23 @@ namespace DegreeClassEstimator.Model
         /// Get all modules which will count for the degree class from the given list
         /// </summary>
         /// <param name="availableModules"></param>
-        /// <param name="maxPoints"></param>
+        /// <param name="maxCredits"></param>
         /// <param name="doubleWeight"></param>
-        public void GetCountingModules(List<Module> availableModules, int maxPoints, bool doubleWeight)
+        public void GetCountingModules(List<Module> availableModules, int maxCredits, bool doubleWeight)
         {
             foreach (var nextModule in availableModules)
             {
-                if (CurrentCountingModulePoints < maxPoints)
+                if (CurrentCountingModuleCredits < maxCredits)
                 {
-                    var nextModuleInitialPoints = nextModule.Points;
-                    if (nextModule.Points + CurrentCountingModulePoints > maxPoints)
+                    var nextModuleInitialCredits = nextModule.Credits;
+                    if (nextModule.Credits + CurrentCountingModuleCredits > maxCredits)
                     {
                         nextModule.Code += " (Partial)";
-                        nextModule.Points = (maxPoints - CurrentCountingModulePoints);
+                        nextModule.Credits = (maxCredits - CurrentCountingModuleCredits);
                         AllModules.Add(new Module()
                         {
                             Code = nextModule.Code,
-                            Points = nextModuleInitialPoints - nextModule.Points,
+                            Credits = nextModuleInitialCredits - nextModule.Credits,
                             Level = nextModule.Level,
                             Compulsory = nextModule.Compulsory,
                             Grade = nextModule.Grade,
@@ -300,16 +300,16 @@ namespace DegreeClassEstimator.Model
         /// </summary>
         public void AddQualityAssuranceModules()
         {
-            var qaPoints = 0;
+            var qaCredits = 0;
             foreach (var module in this.OrderedCountedLevelThreeModules)
             {
-                if (qaPoints < Constants.RequiredQualityAssurancePoints)
+                if (qaCredits < Constants.RequiredQualityAssuranceCredits)
                 {
-                    if ((module.Points + qaPoints) > Constants.RequiredQualityAssurancePoints)
+                    if ((module.Credits + qaCredits) > Constants.RequiredQualityAssuranceCredits)
                     {
                         this.QualityAssuranceModules.Add(new Module()
                         {
-                            Points = module.Points - (Constants.RequiredQualityAssurancePoints - qaPoints),
+                            Credits = module.Credits - (Constants.RequiredQualityAssuranceCredits - qaCredits),
                             Level = Level.Three,
                             Grade = module.Grade
                         });
@@ -318,7 +318,7 @@ namespace DegreeClassEstimator.Model
                     {
                         this.QualityAssuranceModules.Add(module);
                     }
-                    qaPoints += module.Points;
+                    qaCredits += module.Credits;
                 }
             }
         }

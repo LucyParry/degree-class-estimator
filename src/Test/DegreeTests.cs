@@ -30,10 +30,10 @@ namespace DegreeClassEstimator.Tests
 
 
         [TestMethod]
-        public void Test_Standard_AllModulePoints()
+        public void Test_Standard_AllModuleCredits()
         {
             Degree degree = _testData.OUDocWorkedExample1;
-            Assert.AreEqual(240, degree.AllModulePoints);
+            Assert.AreEqual(240, degree.AllModuleCredits);
         }
 
 
@@ -47,8 +47,8 @@ namespace DegreeClassEstimator.Tests
             degree.Classify(classifier);
 
             Assert.IsTrue(degree.IsCalculated);
-            Assert.AreEqual(960, degree.DegreeWeightedPoints);
-            Assert.AreEqual(120, degree.QualityAssuranceWeightedPoints);
+            Assert.AreEqual(960, degree.DegreeWeightedCredits);
+            Assert.AreEqual(120, degree.QualityAssuranceWeightedCredits);
 
             Assert.AreEqual(HonoursClass.LowerSecond, degree.InitialClass);
             Assert.AreEqual(HonoursClass.UpperSecond, degree.QualityAssuranceClass);
@@ -64,8 +64,8 @@ namespace DegreeClassEstimator.Tests
             IClassifier classifier = new StandardClassifier(_thresholds.ToArray());
             degree.Classify(classifier);
 
-            Assert.AreEqual(750, degree.DegreeWeightedPoints);
-            Assert.AreEqual(90, degree.QualityAssuranceWeightedPoints);
+            Assert.AreEqual(750, degree.DegreeWeightedCredits);
+            Assert.AreEqual(90, degree.QualityAssuranceWeightedCredits);
 
             Assert.AreEqual(HonoursClass.UpperSecond, degree.InitialClass);
             Assert.AreEqual(HonoursClass.UpperSecond, degree.QualityAssuranceClass);
@@ -80,8 +80,8 @@ namespace DegreeClassEstimator.Tests
             IClassifier classifier = new StandardClassifier(_thresholds.ToArray());
             degree.Classify(classifier);
 
-            Assert.AreEqual(930, degree.DegreeWeightedPoints);
-            Assert.AreEqual(150, degree.QualityAssuranceWeightedPoints);
+            Assert.AreEqual(930, degree.DegreeWeightedCredits);
+            Assert.AreEqual(150, degree.QualityAssuranceWeightedCredits);
 
             Assert.AreEqual(HonoursClass.LowerSecond, degree.InitialClass);
             Assert.AreEqual(HonoursClass.LowerSecond, degree.QualityAssuranceClass);
@@ -104,13 +104,13 @@ namespace DegreeClassEstimator.Tests
             Assert.IsTrue(modules.Count() == 2);
 
             Assert.IsTrue(modules[0].Code == "tu100");
-            Assert.IsTrue(modules[0].Points == 60);
+            Assert.IsTrue(modules[0].Credits == 60);
             Assert.IsTrue(modules[0].Level == Level.Two);
             Assert.IsTrue(modules[0].Grade == Grade.Transferred);
             Assert.IsFalse(modules[0].Compulsory);
 
             Assert.IsTrue(modules[1].Code == "s104");
-            Assert.IsTrue(modules[1].Points == 30);
+            Assert.IsTrue(modules[1].Credits == 30);
             Assert.IsTrue(modules[1].Level == Level.Three);
             Assert.IsTrue(modules[1].Grade == Grade.Distinction);
             Assert.IsTrue(modules[1].Compulsory);

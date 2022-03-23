@@ -12,8 +12,8 @@ namespace DegreeClassEstimator.Model
         public string Code { get; set; }
 
         [Required]
-        [Range(1, 120, ErrorMessage = "Points must be between 1 and 120")]
-        public int Points { get; set; }
+        [Range(1, 120, ErrorMessage = "Credits must be between 1 and 120")]
+        public int Credits { get; set; }
 
         [Required]
         [Range(typeof(Level), nameof(Level.Two), nameof(Level.Three), ErrorMessage = "Select a level")]
@@ -36,7 +36,7 @@ namespace DegreeClassEstimator.Model
 
 
         /// <summary>
-        /// Instantiate and return an new module with the same Description, Level, Points and Grade as this one
+        /// Instantiate and return an new module with the same Description, Level, Credits and Grade as this one
         /// </summary>
         /// <returns></returns>
         public Module CopyModule()
@@ -46,7 +46,7 @@ namespace DegreeClassEstimator.Model
                 Code = this.Code,
                 Grade = this.Grade,
                 Level = this.Level,
-                Points = this.Points,
+                Credits = this.Credits,
                 Compulsory = this.Compulsory
             };
             return module;
@@ -57,25 +57,25 @@ namespace DegreeClassEstimator.Model
         /// Check the <see cref="Module"/> is valid
         /// </summary>
         /// <returns></returns>
-        private bool IsValid() => (this.Points > 0 && this.Points <= Constants.ModuleMaxPoints);
+        private bool IsValid() => (this.Credits > 0 && this.Credits <= Constants.ModuleMaxCredits);
 
 
         /// <summary>
-        /// The <see cref="Points"/> multiplied by the <see cref="Grade"/> (so a lower <see cref="Grade"/> 'costs' more)
+        /// The <see cref="Credits"/> multiplied by the <see cref="Grade"/> (so a lower <see cref="Grade"/> 'costs' more)
         /// </summary>
-        public int GradeWeightedPoints => IsValid() ? (Points * (int) Grade) : -1;
+        public int GradeWeightedCredits => IsValid() ? (Credits * (int) Grade) : -1;
 
 
         /// <summary>
-        /// The <see cref="GradeWeightedPoints"/> with 'double weighting' if appropriate (usually done for the first 120 points at Level 3)
+        /// The <see cref="GradeWeightedCredits"/> with 'double weighting' if appropriate (usually done for the first 120 Credits at Level 3)
         /// </summary>
-        public int FinalWeightedPoints
+        public int FinalWeightedCredits
         {
             get
             {
                 if (IsValid())
                 {
-                    return DoubleWeight ? (GradeWeightedPoints * 2) : GradeWeightedPoints;
+                    return DoubleWeight ? (GradeWeightedCredits * 2) : GradeWeightedCredits;
                 }
                 return -1;
             }
@@ -102,7 +102,7 @@ namespace DegreeClassEstimator.Model
             return new Module()
             {
                 Code = description[0],
-                Points = Convert.ToInt32(description[1].Substring(pIndex + 1, (lIndex - 1) - pIndex)),
+                Credits = Convert.ToInt32(description[1].Substring(pIndex + 1, (lIndex - 1) - pIndex)),
                 Level = (Level)Convert.ToInt32(description[1].Substring(lIndex + 1, (gIndex - 1) - lIndex)),
                 Grade = (Grade)Convert.ToInt32(description[1].Substring(gIndex + 1, (cIndex - 1) - gIndex)),
                 Compulsory = Convert.ToInt32(description[1].Substring(cIndex + 1)) != 0
@@ -113,41 +113,41 @@ namespace DegreeClassEstimator.Model
         /// <summary>
         /// Short code which represents the details of the <see cref="Module"/>
         /// </summary>
-        public string ModuleDescriptionCode => $"{Code}_P{Points}L{(int)Level}G{(int)Grade}C{(Compulsory ? 1 : 0)}";
+        public string ModuleDescriptionCode => $"{Code}_P{Credits}L{(int)Level}G{(int)Grade}C{(Compulsory ? 1 : 0)}";
 
 
         /// <summary>
-        /// Short numerical description of the grade weighted points
+        /// Short numerical description of the grade weighted Credits
         /// </summary>
-        public string GradeWeightedPointsShortDescription => $"{Points} × {(int)Grade}";
+        public string GradeWeightedCreditsShortDescription => $"{Credits} × {(int)Grade}";
 
 
         /// <summary>
-        /// Short numerical description of the final weighted points calculation
+        /// Short numerical description of the final weighted Credits calculation
         /// </summary>
-        public string FinalWeightedPointsShortDescription
+        public string FinalWeightedCreditsShortDescription
         {
             get
             {
                 string doubleWeight = DoubleWeight ? "2 × " : "";
                 string gradeString = this.Grade == Grade.Transferred ? "Transferred" : $"× {(int)Grade}";
-                return $"{doubleWeight}({Points} {gradeString})";
+                return $"{doubleWeight}({Credits} {gradeString})";
             }
         }
 
         /// <summary>
         /// Longer description of the final weighting calculation
         /// </summary>
-        public string FinalWeightedPointsLongDescription
+        public string FinalWeightedCreditsLongDescription
         {
             get
             {
                 string doubleWeight = DoubleWeight ? ", double weighted for Level 3" : "";
                 if (this.Grade == Grade.Transferred)
                 {
-                    return $"{Points} transferred module points";
+                    return $"{Credits} transferred module Credits";
                 }
-                return $"{Points} module points, multiplied by {(int)Grade} (Grade {(int)Grade}){doubleWeight}";
+                return $"{Credits} module Credits, multiplied by {(int)Grade} (Grade {(int)Grade}){doubleWeight}";
             }
         }
     }

@@ -8,7 +8,7 @@ namespace DegreeClassEstimator.Tests
     public static class ModuleTestData
     {
         /// <summary>
-        /// Genenerate a list of modules for each available Grade and Level, and the most common Points values
+        /// Genenerate a list of modules for each available Grade and Level, and the most common Credits values
         /// </summary>
         public static List<Module> GetTestData()
         {
@@ -16,9 +16,9 @@ namespace DegreeClassEstimator.Tests
 
             int gradeCount = Enum.GetNames(typeof(Grade)).Length;
             int levelCount = Enum.GetNames(typeof(Level)).Length;
-            int[] points = { 30, 60, 120 };
+            int[] Credits = { 30, 60, 120 };
 
-            foreach (int pointValue in points)
+            foreach (int pointValue in Credits)
             {
                 for (int i = 2; i < levelCount + 2; i++)
                 {
@@ -27,7 +27,7 @@ namespace DegreeClassEstimator.Tests
                         modules.Add(new Module
                         {
                             Code = $"P{pointValue}L{i}G{j}C0",
-                            Points = pointValue,
+                            Credits = pointValue,
                             Level = (Level)i,
                             Grade = (Grade)j,
                             Compulsory = false
@@ -38,8 +38,8 @@ namespace DegreeClassEstimator.Tests
 
             modules.Add(new Module
             {
-                Code = "InvalidPoints",
-                Points = 99999999,
+                Code = "InvalidCredits",
+                Credits = 99999999,
                 Level = Level.Three,
                 Grade = Grade.Transferred,
                 Compulsory = false

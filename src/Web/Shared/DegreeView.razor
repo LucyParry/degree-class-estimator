@@ -18,7 +18,7 @@
                         <tr>
                             <th scope="col" class="text-center" style="width:6%;"></th>
                             <th scope="col" style="width:15%;">Module</th>
-                            <th scope="col" class="text-center" style="width:10%;">Points</th>
+                            <th scope="col" class="text-center" style="width:10%;">Credits</th>
                             <th scope="col" class="text-center" style="width:10%;">Grade</th>
                             <th scope="col" class="text-center" style="width:10%;">Level</th>                            
                             <th scope="col">Weighted</th> 
@@ -41,7 +41,7 @@
                                         <span class="badge bg-primary">Primary</span>
                                     }
                                 </td>
-                                <td class="text-center align-middle">@module.Points</td>
+                                <td class="text-center align-middle">@module.Credits</td>
                                 <td class="text-center align-middle">@module.Grade.GetEnumDescription()</td>
                                 <td class="text-center align-middle">@( (int)module.Level )</td>                                
                                 <td>
@@ -49,9 +49,9 @@
                                     {
                                         if (Degree.CountingModules.Contains(module))
                                         {
-                                            @module.FinalWeightedPointsShortDescription<span>&nbsp;=&nbsp;</span><span class="strong">@module.FinalWeightedPoints</span>
+                                            @module.FinalWeightedCreditsShortDescription<span>&nbsp;=&nbsp;</span><span class="strong">@module.FinalWeightedCredits</span>
                                             <br />
-                                            <span class="small-text">@module.FinalWeightedPointsLongDescription</span>
+                                            <span class="small-text">@module.FinalWeightedCreditsLongDescription</span>
                                         }
                                         else
                                         {
@@ -65,7 +65,7 @@
                                         if (Degree.QualityAssuranceModules.Contains(module))
                                         {
                                             <br />
-                                            <span>@module.GradeWeightedPointsShortDescription</span>
+                                            <span>@module.GradeWeightedCreditsShortDescription</span>
                                         }
                                     }
                                 </td>
@@ -76,18 +76,18 @@
                         <tr>
                             <th class="text-center align-middle">Totals</th>
                             <th></th>
-                            <th class="text-center align-middle">@Degree.AllModulePoints</th>
+                            <th class="text-center align-middle">@Degree.AllModuleCredits</th>
                             <th></th>
                             <th></th>
                             <th class="text-center align-middle">
                                 @{
-                                    var weighted = Degree.IsValid ? Degree.DegreeWeightedPoints.ToString() : "";
+                                    var weighted = Degree.IsValid ? Degree.DegreeWeightedCredits.ToString() : "";
                                     @weighted
                                 }
                             </th>
                             <th class="text-center align-middle">
                                 @{
-                                    var weightedQA = Degree.IsValid ? Degree.QualityAssuranceWeightedPoints.ToString() : "";
+                                    var weightedQA = Degree.IsValid ? Degree.QualityAssuranceWeightedCredits.ToString() : "";
                                     @weightedQA
                                 }
                             </th>

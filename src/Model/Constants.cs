@@ -2,10 +2,10 @@
 {
     public static class Constants
     {
-        public static int ModuleMaxPoints => 360;
-        public static int RequiredPointsAboveLevel1 => 240;
-        public static int RequiredPointsLevel3 => 120;
-        public static int RequiredQualityAssurancePoints => 60;
+        public static int ModuleMaxCredits => 360;
+        public static int RequiredCreditsAboveLevel1 => 240;
+        public static int RequiredCreditsLevel3 => 120;
+        public static int RequiredQualityAssuranceCredits => 60;
 
 
         public static ClassThresholds QAClassThresholds => new()

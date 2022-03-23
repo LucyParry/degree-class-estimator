@@ -19,7 +19,7 @@ namespace DegreeClassEstimator.Web
             var module = new Module()
             {
                 Code = newModule.Code,
-                Points = newModule.Points,
+                Credits = newModule.Credits,
                 Compulsory = newModule.Compulsory,
                 Level = newModule.Level,
                 Grade = newModule.Grade

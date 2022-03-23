@@ -20,18 +20,18 @@ namespace DegreeClassEstimator.Model
         public void Classify(Degree degree)
         {
             // Add counting modules for the required 120 at Level 3 first, then do the rest
-            degree.GetCountingModules(degree.OrderedLevelThreeModules.ToList(), Constants.RequiredPointsLevel3, true);
-            degree.GetCountingModules(degree.UncountedModules.ToList(), Constants.RequiredPointsAboveLevel1, false);
+            degree.GetCountingModules(degree.OrderedLevelThreeModules.ToList(), Constants.RequiredCreditsLevel3, true);
+            degree.GetCountingModules(degree.UncountedModules.ToList(), Constants.RequiredCreditsAboveLevel1, false);
             degree.AddQualityAssuranceModules();
 
             Result<ClassThresholds> initialThresholdsResult;
-            if (degree.CountingModulePointsForClassification < 1)
+            if (degree.CountingModuleCreditsForClassification < 1)
             {
                 initialThresholdsResult = new Result<ClassThresholds>(false, new List<string> { "No un-transferred credit found - Unable to classify" });
             }
             else
             {
-                initialThresholdsResult = this.GetThresholdSet(degree.CountingModulePointsForClassification);
+                initialThresholdsResult = this.GetThresholdSet(degree.CountingModuleCreditsForClassification);
                 if (initialThresholdsResult.Success)
                     degree.InitialClassThresholds = initialThresholdsResult.ReturnObject;
             }
@@ -60,7 +60,7 @@ namespace DegreeClassEstimator.Model
 
 
         /// <summary>
-        /// Get the set thresholds used for each degree class using the counting module points (excluding any transferred credit)
+        /// Get the set thresholds used for each degree class using the counting module Credits (excluding any transferred credit)
         /// </summary>
         /// <param name="availableCredit"></param>
         /// <returns></returns>
@@ -69,7 +69,7 @@ namespace DegreeClassEstimator.Model
             ClassThresholds thresholds = ThresholdsList.FirstOrDefault(x => x.AvailableCredit == availableCredit);
             if (thresholds is null)
             {
-                return new Result<ClassThresholds>(false, new List<string> { "No threshold values found for points value" });
+                return new Result<ClassThresholds>(false, new List<string> { "No threshold values found for Credits value" });
             }
             return new Result<ClassThresholds>(true, thresholds);
         }
