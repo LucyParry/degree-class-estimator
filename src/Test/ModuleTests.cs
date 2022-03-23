@@ -77,13 +77,13 @@ namespace DegreeClassEstimator.Tests
             Assert.IsTrue(modules[0].Points == 60);
             Assert.IsTrue(modules[0].Level == Level.Two);
             Assert.IsTrue(modules[0].Grade == Grade.Transferred);
-            Assert.IsFalse(modules[0].Compulsary);
+            Assert.IsFalse(modules[0].Compulsory);
             
             Assert.IsTrue(modules[1].Code == "s104");
             Assert.IsTrue(modules[1].Points == 30);
             Assert.IsTrue(modules[1].Level == Level.Three);
             Assert.IsTrue(modules[1].Grade == Grade.Distinction);
-            Assert.IsTrue(modules[1].Compulsary);
+            Assert.IsTrue(modules[1].Compulsory);
         }
 
 

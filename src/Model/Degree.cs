@@ -193,7 +193,7 @@ namespace DegreeClassEstimator.Model
                 return AllModules
                     .Where(x => x.Level == Level.Three)
                     .OrderBy(x => (int)x.Grade)
-                    .OrderByDescending(x => x.Compulsary ? 1 : 0);
+                    .OrderByDescending(x => x.Compulsory ? 1 : 0);
             }
         }
 
@@ -214,7 +214,7 @@ namespace DegreeClassEstimator.Model
                 return AllModules
                     .Where(x => !CountingModules.Contains(x))
                     .OrderBy(x => (int)x.Grade)
-                    .OrderByDescending(x => x.Compulsary ? 1 : 0);
+                    .OrderByDescending(x => x.Compulsory ? 1 : 0);
             }
         }
 
@@ -285,7 +285,7 @@ namespace DegreeClassEstimator.Model
                             Code = nextModule.Code,
                             Points = nextModuleInitialPoints - nextModule.Points,
                             Level = nextModule.Level,
-                            Compulsary = nextModule.Compulsary,
+                            Compulsory = nextModule.Compulsory,
                             Grade = nextModule.Grade,
                         });
                     }

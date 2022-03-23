@@ -20,7 +20,7 @@ namespace DegreeClassEstimator.Web
             {
                 Code = newModule.Code,
                 Points = newModule.Points,
-                Compulsary = newModule.Compulsary,
+                Compulsory = newModule.Compulsory,
                 Level = newModule.Level,
                 Grade = newModule.Grade
             };

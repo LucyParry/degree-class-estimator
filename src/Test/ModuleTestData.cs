@@ -30,7 +30,7 @@ namespace DegreeClassEstimator.Tests
                             Points = pointValue,
                             Level = (Level)i,
                             Grade = (Grade)j,
-                            Compulsary = false
+                            Compulsory = false
                         });
                     }
                 }
@@ -42,7 +42,7 @@ namespace DegreeClassEstimator.Tests
                 Points = 99999999,
                 Level = Level.Three,
                 Grade = Grade.Transferred,
-                Compulsary = false
+                Compulsory = false
             });
 
             return modules;

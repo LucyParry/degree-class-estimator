@@ -24,9 +24,9 @@ namespace DegreeClassEstimator.Model
 
 
         /// <summary>
-        /// The <see cref="Module"/> may be compulsary for the <see cref="Degree"/> or not. Compulsary modules are counted before non-compulsary ones
+        /// The <see cref="Module"/> may be compulsory for the <see cref="Degree"/> or not. Compulsory modules are counted before non-compulsory ones
         /// </summary>
-        public bool Compulsary { get; set; }
+        public bool Compulsory { get; set; }
 
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace DegreeClassEstimator.Model
                 Grade = this.Grade,
                 Level = this.Level,
                 Points = this.Points,
-                Compulsary = this.Compulsary
+                Compulsory = this.Compulsory
             };
             return module;
         }
@@ -105,7 +105,7 @@ namespace DegreeClassEstimator.Model
                 Points = Convert.ToInt32(description[1].Substring(pIndex + 1, (lIndex - 1) - pIndex)),
                 Level = (Level)Convert.ToInt32(description[1].Substring(lIndex + 1, (gIndex - 1) - lIndex)),
                 Grade = (Grade)Convert.ToInt32(description[1].Substring(gIndex + 1, (cIndex - 1) - gIndex)),
-                Compulsary = Convert.ToInt32(description[1].Substring(cIndex + 1)) != 0
+                Compulsory = Convert.ToInt32(description[1].Substring(cIndex + 1)) != 0
             };
         }
 
@@ -113,7 +113,7 @@ namespace DegreeClassEstimator.Model
         /// <summary>
         /// Short code which represents the details of the <see cref="Module"/>
         /// </summary>
-        public string ModuleDescriptionCode => $"{Code}_P{Points}L{(int)Level}G{(int)Grade}C{(Compulsary ? 1 : 0)}";
+        public string ModuleDescriptionCode => $"{Code}_P{Points}L{(int)Level}G{(int)Grade}C{(Compulsory ? 1 : 0)}";
 
 
         /// <summary>
