@@ -33,7 +33,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-fPTSPBY3lh6\/1\/Xeuc20XYGI8LKnoEuwW\/XL08qzLkw=",
+      "hash": "sha256-apxoMCQQTY19Aqc8oVJoa6JUU3+LKgIVonsP5BDV6lU=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -97,7 +97,7 @@
       "url": "_framework\/Microsoft.JSInterop.WebAssembly.dll"
     },
     {
-      "hash": "sha256-S5SqOZS58NECFzZodyA\/vqe3WIjL3aaohCIJD3Ha7DY=",
+      "hash": "sha256-txMAff6LiJHV8SkskMXclcLw14lM0qSMgsQOpH63c+Y=",
       "url": "_framework\/Model.dll"
     },
     {
@@ -201,7 +201,7 @@
       "url": "_framework\/System.Threading.dll"
     },
     {
-      "hash": "sha256-BC\/QRQJjiyqHzuDFzb4OGTgn\/hCV1Dz01lSd1tZV8KU=",
+      "hash": "sha256-+j3T9OghrkW3rN\/ef1WaRmUAq2\/rIYqqQ9qSoWTgoGI=",
       "url": "_framework\/Web.dll"
     },
     {
@@ -237,5 +237,5 @@
       "url": "scripts\/app-jsinterop-functions.js"
     }
   ],
-  "version": "hcQ3UCpt"
+  "version": "k\/vkuFI2"
 };
