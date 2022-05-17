@@ -17,12 +17,13 @@
                     <thead>
                         <tr>
                             <th scope="col" class="text-center" style="width:6%;"></th>
+                            <th scope="col" style="width:5%;">Required</th>
                             <th scope="col" style="width:15%;">Module</th>
                             <th scope="col" class="text-center" style="width:10%;">Credits</th>
                             <th scope="col" class="text-center" style="width:10%;">Grade</th>
-                            <th scope="col" class="text-center" style="width:10%;">Level</th>                            
-                            <th scope="col">Weighted</th> 
-                            <th scope="col">QA</th> 
+                            <th scope="col" class="text-center" style="width:10%;">Level</th>
+                            <th scope="col">Weighted</th>
+                            <th scope="col">QA</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,22 +35,28 @@
                                         <i class="bi bi-trash mr-2"></i>
                                     </button>
                                 </td>
+                                <td></td>
                                 <td class="align-middle">
-                                    <span class="mr-2">@module.Code</span>
-                                    @if (module.Compulsory)
-                                    {
-                                        <span class="badge bg-primary">Primary</span>
-                                    }
+                                    <span class="mr-2"></span>
+                                    <input type="text" class="form-control" @bind="@module.Code" />
                                 </td>
-                                <td class="text-center align-middle">@module.Credits</td>
+                                <td class="text-center align-middle">
+                                    
+                                    <!--TODO - Get min and max from model-->
+                                    <input type="number" class="form-control" @bind="@module.Credits" min="1" max="120" />
+                                </td>
                                 <td class="text-center align-middle">@module.Grade.GetEnumDescription()</td>
-                                <td class="text-center align-middle">@( (int)module.Level )</td>                                
+                                <td class="text-center align-middle">@( (int)module.Level )</td>
                                 <td>
                                     @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
                                     {
                                         if (Degree.CountingModules.Contains(module))
                                         {
-                                            @module.FinalWeightedCreditsShortDescription<span>&nbsp;=&nbsp;</span><span class="strong">@module.FinalWeightedCredits</span>
+                                            @module.FinalWeightedCreditsShortDescription
+
+                                            <span>&nbsp;=&nbsp;</span>
+
+                                            <span class="strong">@module.FinalWeightedCredits</span>
                                             <br />
                                             <span class="small-text">@module.FinalWeightedCreditsLongDescription</span>
                                         }
@@ -159,7 +166,7 @@
         this.SaveUri = Degree.IsValid ? $"{NavManager.Uri}{(Degree.GetModuleCodeString()).Base64Encode(System.Text.Encoding.UTF8)}" : "";
         this.StateHasChanged();
 
-         await JSRuntime.InvokeVoidAsync("jsInteropFunctions.sectionJump", "results-section");
+        await JSRuntime.InvokeVoidAsync("jsInteropFunctions.sectionJump", "results-section");
     }
 
     async void DoClipboardCopy()
