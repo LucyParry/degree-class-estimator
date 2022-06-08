@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Text;
+using System.Reflection;
 
 namespace DegreeClassEstimator.Model
 {
@@ -9,24 +9,29 @@ namespace DegreeClassEstimator.Model
         /// <summary>
         /// Get the 'Description' attribute of an Enum
         /// </summary>
-        public static string GetEnumDescription<T>(this T enumVal) where T: IConvertible
+        public static string GetEnumDescription<T>(this T enumVal) where T : Enum
         {
             string description = null;
-            Type type = enumVal.GetType();
-            if (type.IsEnum)
+            var members = typeof(T).GetMember(enumVal.ToString());
+            if (members.Length > 0)
             {
-                var memberInfo = type.GetMember(enumVal.ToString());
-                if (memberInfo.Length > 0)
-                {
-                    var customAttribs = memberInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
-                    if (customAttribs.Length > 0)
-                    {
-                        description = ((DescriptionAttribute)customAttribs[0]).Description;
-                    }
-                }
-            }          
+                DescriptionAttribute attribute = members[0].GetCustomAttribute<DescriptionAttribute>();
+                description = attribute is null ? null : attribute.Description;
+            }
             return description;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string GetDisplayName<T>(this T enumVal) where T : Enum
+        {
+            string description = enumVal.GetEnumDescription();
+            if (description is not null)
+            {
+                return description;
+            }
+            return enumVal.ToString();
+        }
     }
 }

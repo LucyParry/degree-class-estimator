@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Model.Utility
+namespace DegreeClassEstimator.Model
 {
     public static class StringExtensions
     {
