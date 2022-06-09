@@ -30,32 +30,15 @@
             <div class="mb-3 row">
                 <label for="@newModule.Level" class="col-sm-3 col-form-label">Level</label>
                 <div class="col-sm-9 mt-2">
-                    <InputRadioGroup @bind-Value="newModule.Level">
-                        @foreach (Level level in (Level[])Enum.GetValues(typeof(Level)))
-                        {
-                            <div class="form-check form-check-inline">
-                                <InputRadio class="form-check-input" Value="level" />
-                                <label class="form-check-label">@level</label>
-                            </div>
-                        }
-                    </InputRadioGroup>
+                    <Web.Components.InputSelectEnum class="form-select" @bind-Value="newModule.Level"></Web.Components.InputSelectEnum>
+                    <ValidationMessage For="@(() => newModule.Level)" />
                 </div>
-                <ValidationMessage For="@(() => newModule.Level)" />
             </div>
 
             <div class="mb-3 row">
                 <label for="@newModule.Grade" class="col-sm-3 col-form-label">Grade</label>
                 <div class="col-sm-9">
-                    <InputSelect class="form-select" @bind-Value="newModule.Grade">
-                        <option value="">Select grade...</option>
-                        @{
-                            string[] grades = Enum.GetNames(typeof(Grade));
-                            foreach (Grade grade in (Grade[])Enum.GetValues(typeof(Grade)))
-                            {
-                                <option value="@grade">@grade.GetEnumDescription()</option>
-                            }
-                        }
-                    </InputSelect>
+                    <Web.Components.InputSelectEnum class="form-select" @bind-Value="newModule.Grade"></Web.Components.InputSelectEnum>
                     <ValidationMessage For="@(() => newModule.Grade)" />
                 </div>
             </div>
