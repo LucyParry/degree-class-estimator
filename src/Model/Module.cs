@@ -142,7 +142,7 @@ namespace DegreeClassEstimator.Model
             {
                 string doubleWeight = DoubleWeight ? "2 × " : "";
                 string gradeString = this.Grade == Grade.Transferred ? "Transferred" : $"× {(int)Grade}";
-                return $"{doubleWeight}({Credits} {gradeString})";
+                return $"{doubleWeight}({Credits} {gradeString}) = {FinalWeightedCredits}";
             }
         }
 
@@ -153,12 +153,12 @@ namespace DegreeClassEstimator.Model
         {
             get
             {
-                string doubleWeight = DoubleWeight ? ", double weighted for Level 3" : "";
+                string doubleWeight = DoubleWeight ? ", double weighted" : "";
                 if (this.Grade == Grade.Transferred)
                 {
                     return $"{Credits} transferred module Credits";
                 }
-                return $"{Credits} module Credits, multiplied by {(int)Grade} (Grade {(int)Grade}){doubleWeight}";
+                return $"{Credits} module Credits, multiplied by Grade {(int)Grade}{doubleWeight}";
             }
         }
     }

@@ -106,6 +106,18 @@ html, body {
     font-size: 0.75em;
 }
 
+div.table {
+    display: table;
+}
+
+div.tr {
+    display: table-row;
+}
+
+div.td {
+    display: table-cell;
+}
+
 td.table-60 {
     width: 60%;
 }

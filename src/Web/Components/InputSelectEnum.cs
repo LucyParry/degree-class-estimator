@@ -12,7 +12,6 @@ namespace Web.Components
     /// </summary>
     public class InputSelectEnum<TEnum> : InputBase<TEnum> where TEnum : Enum
     {
-        // Generate html when the component is rendered.
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             int sequence = 0;
@@ -29,7 +28,7 @@ namespace Web.Components
                 builder.AddContent(sequence++, value.GetDisplayName());
                 builder.CloseElement();
             }
-            builder.CloseElement(); // close the select element
+            builder.CloseElement();
         }
 
         protected override bool TryParseValueFromString(string value, out TEnum result, out string validationErrorMessage)
