@@ -6,6 +6,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.4;
 }
 
 
@@ -104,18 +105,7 @@ html, body {
 
 .small-text {
     font-size: 0.75em;
-}
-
-div.table {
-    display: table;
-}
-
-div.tr {
-    display: table-row;
-}
-
-div.td {
-    display: table-cell;
+    line-height: 1;
 }
 
 td.table-60 {
@@ -158,4 +148,3 @@ table.thresholds-table {
 .alert-sm h5 {
     margin-bottom: 0.1rem;
 }
-
