@@ -10,50 +10,60 @@
         <div class="mb-5">
             <h4><strong>Introduction</strong></h4>
             <p>
-                Most students wonder what classification they're likely to get at the end of the marathon of a <a href="https://www.open.ac.uk/"> Open University</a> degree. The OU provides an official guidance document
-                <em><a href="https://help.open.ac.uk/documents/policies/working-out-your-class-of-honours/files/50/honours-class-working-out.pdf">Working Out Your Class of Honours</a></em>,
-                but many students find it hard to follow. To help, various unofficial calculators have sprung up over the years, including the always popular but now sadly defunct
-                <a href="http://cleveret.net/?page_id=29">Cleveret</a> calculator [1]. This is an attempt to make something similarly useful!
+                Most students wonder what class they're likely to get for their <a href="https://www.open.ac.uk/"> Open University</a> degree, but many find the OU official guidance document, 
+                <em><a href="https://help.open.ac.uk/documents/policies/working-out-your-class-of-honours/files/50/honours-class-working-out.pdf">Working Out Your Class of Honours</a></em> a little hard to follow.                
             </p>
-
-            <h6><strong>Disclaimer and limitations of the tool</strong></h6>
             <p>
-                Please be aware that the tool is <strong>completely unofficial</strong>, and provides an estimate only for informational purposes. It has various necessary limitations; it will not for 
-                example check that the modules entered can be counted towards your named degree, that compulsory modules have been added, or any other individual circumstances.
+                This calculator is an attempt to help predict your degree class based on the modules you've completed and grades you're likley to get in future modules, made by an OU graduate who has been there! Thank you also to the popular but now sadly defunct
+                <a href="http://cleveret.net/?page_id=29">Cleveret</a> calculator for inspiring this version. 
+            </p>
+            <p>
+                <strong>Please be aware that this tool is completely unofficial, and provides an estimate only for informational purposes</strong>. 
+                <br/>It has various limitations; it will not for example check that the modules entered can be counted towards your named degree or that any required modules have been added, or any other individual circumstances.
                 Every effort has been made to ensure its accuracy, but responsibility can't be taken for wrong results, especially for less standard circumstances such as transferred credit. 
-                <strong> Always consult the official document from the Open University, or contact Student Support to discuss your individual qualification and likely result.</strong>.
+                <strong>Always <i>always</i> consult the official document from the Open University, or contact Student Support to discuss your individual qualification and likely result if in any doubt.</strong>.
+            </p>
+            <p>
+                Please <a href="@Email">email me</a> with any questions or suggestions and I'll do my best to help. If you roll that way, you can find the code on the
+                <a href="https://github.com/LucyParry/degree-class-estimator/tree/master/src">GitHub repo</a> or just look at my cats on <a href="@Insta">Instagram</a>.
             </p>
         </div>
 
         <div class="mb-5">
             <h4><strong>How do UK undergraduate honours degrees work?</strong></h4>
             <p>
-                The OU uses the same classification system as most other UK universities; degrees awarded 'with honours' are given one of four classifications. From highest to lowest,
-                these are: first, upper second (2:1), lower second (2:2) and third [2].
+                The OU uses the same classification system as most other
+                
+                Most UK universities, including the <a href="https://www.open.ac.uk/"> Open University</a>, award degrees 'with honours' with one of four classifications. From highest to lowest,
+                these are: first, upper second (2:1), lower second (2:2) and third. Degrees can also be awarded without honours, these are usually referred to as 'ordinary degrees' and do not receive a classification.
             </p>
         </div>
 
         <div class="mb-5">
             <h4><strong>How is the degree class calculated for OU honours degrees?</strong></h4>
-            <p>Every OU module is worth a fixed amount of credit. An OU honours degree usually consists of 360 module credits in total:</p>
+            <p>Every OU module is worth a fixed amount of credits, and an OU honours degree usually consists of 360 module credits in total.</p>
             <ul>
-                <li class="mb-2">At least 240 credits must be at Level 2 or above. Usually the grades from the modules making up these credits determine the degree class, although it can be less if transferred credit is used.</li>
-                <li class="mb-2">At least 120 credits must be at Level 3.</li>
-                <li class="mb-2">Credits at Level 1 count towards the total 360, but Level 1 grades do not count towards the degree class calculation.</li>
+                <li class="mb-2"><strong>At least 240 of the credits must be at level 2 or above.</strong> Usually the grades from the modules making up these credits determine the degree class, although it can be less if transferred credit is used.</li>
+                <li class="mb-2"><strong>At least 120 credits must be at level 3.</strong></li>
+                <li class="mb-2">Credits at Level 1 count towards the total 360, but Level 1 grades <i>do not</i> count towards the degree class calculation.</li>
             </ul>
             <p>The classification is then calculated in several steps -</p>
-            <ul>
+            <ol>
                 <li class="mb-2">
-                    The highest graded 120 module credits at level 3 are taken first. Each of these modules is given a graded score based on the credit account multiplied by the grade, with Distinction worth 1 through to Pass 4 worth 4.
-                    If you scored a Pass 3 on <em><a href="https://www.open.ac.uk/courses/modules/tm354">TM354 - Software Engineering</a></em> for example, the graded score would be 90 (30 credits x 3 for a Pass 3). These
-                    graded scores are then multiplied by 2 to give them double weighting, so the TM354 example would have a final weighted and graded score of 180.
+                    The highest graded 120 module credits at level 3 are taken first. Each of these modules is given a graded score based on the credits multiplied by a number given corresponding to the grade. A Distinction = 1, Grade 2 = 2, etc.
+                    A grade of Pass 3 on <em><a href="https://www.open.ac.uk/courses/modules/tm354">TM354 - Software engineering</a></em> for example, would have a graded score of 90 (30 credits x 3 for Pass 3). 
+                </li>
+
+                <li class="mb-2">
+                    These graded scores are then multiplied by 2 to give them double weighting in the final calculation. In TM354 example above, we would have a final weighted and graded score of 180 (90 x 2).
+                </li>
+
+                <li class="mb-2">
+                    Any remaining elligible modules, which are usually the 120 credits at level 2, are then also given a graded score using the same method in step 1 of credits multiplied by grade, but these are <em>not</em> then given the double weighting.
+                    A Pass 2 on <em><a href="https://www.open.ac.uk/courses/modules/a222">Exploring philosophy</a></em> for example would be given 120 (60 credits x 2 for Pass 2).
                 </li>
                 <li class="mb-2">
-                    Any remaining elligible modules, which in most cases will be 120 credits at level 2, are then also given a graded score using the same method of credits x grade, but these are <em>not</em> given the double weighting.
-                    A Pass 2 on <em><a href="https://www.open.ac.uk/courses/modules/a222">Exploring philosophy</a></em> for example would be 120 (60 credits x 2 for a Pass 2).
-                </li>
-                <li class="mb-2">
-                    The scores for each module calculated in this way are then summed up, and the total determines the <strong>initial</strong> degree classification. Generally, the grade thresholds are as follows (although note that this may be different for degrees with transferred credit) -
+                    The scores for each module calculated in this way are then summed up, and the total determines the <strong>initial</strong> degree classification. Usually, the grade thresholds are as below (although this can be different for degrees with transferred credit) -
                     <br/><br/>
                     <table class="table table-sm table-hover table-bordered table-responsive-sm5 m-2">
                         <tbody>
@@ -79,7 +89,8 @@
                 </li>
 
                 <li class="mb-2">
-                    A 'quality assurance' test is then performed to check that the best 60 credits at level 3 meets or exceeds the initial classification, usually using the following thresholds (again note that degrees with transferred credit may be different) -
+                    After the initial classification is calculated, a 'quality assurance' check is done to make sure that the highest scoring 60 credits at level 3 meets or exceeds the initial classification. 
+                    This usually uses the following thresholds (again note that degrees with transferred credit differ) -
                     <br/><br/>
                     <table class="table table-sm table-hover table-bordered table-responsive-sm5 m-2">
                         <tbody>
@@ -105,52 +116,32 @@
                 </li>
 
                 <li class="mb-2">
-                    If the quality assurance test is satisfied, you will be awarded the classification given by the initial result.
+                    If the quality assurance classification is the same or better than the initial classification calculated in step 4, you should be awarded the initial classification for your degree. If the quality
+                    assurance classification is lower than the initial classification though, you'll be awarded the lower quality assurance classification.
                 </li>
-            </ul>
-            <div class="mb-2">
-                <h6><strong>Transferred credit</strong></h6>
-                <p>
-                    If you have been awarded tranferred credit and so have less than 240 credits at Level 2 or above, the thresholds for each degree class are
-                    adjusted pro-rata, down to a minimum of 120. The tool will attempt to take this into account if you add a module with the amount of transferred
-                    credit you have been given and the grade set to 'transferred'. Note that degrees with transferred credit are notoriously tricky, so always contact the OU to discuss!
-                </p>
-            </div>
+            </ol>
 
             <div class="mb-2">
                 <h6><strong>Worked examples</strong></h6>
                 The OU <em><a href="https://help.open.ac.uk/documents/policies/working-out-your-class-of-honours/files/50/honours-class-working-out.pdf">Working Out Your Class of Honours</a></em> 
-                document has two useful worked examples, reproduced here; <a href="TDMxMF9QNjBMM0czQzAmRTMwMF9QNjBMM0cyQzAmTDIxMV9QNjBMMkczQzAmTDIxMF9QNjBMMkczQzA=">Example 1</a> and
-                <a href="TTM4MV9QMzBMM0czQzAmTVQzNjVfUDMwTDNHMkMwJk0zNDZfUDMwTDNHM0MwJk0zNDNfUDMwTDNHMUMwJk1TVDIwOV9QNjBMMkcyQzAmTVMyMjFfUDMwTDJHMUMwJk0yNDlfUDMwTDJHMkMw">Example 2</a>.
+                document has two useful worked examples, which you can play with in the calculator here - 
+                <ul>
+                    <li><a href="TDMxMF9QNjBMM0czQzAmRTMwMF9QNjBMM0cyQzAmTDIxMV9QNjBMMkczQzAmTDIxMF9QNjBMMkczQzA=">Example 1</a></li>
+                    <li><a href="TTM4MV9QMzBMM0czQzAmTVQzNjVfUDMwTDNHMkMwJk0zNDZfUDMwTDNHM0MwJk0zNDNfUDMwTDNHMUMwJk1TVDIwOV9QNjBMMkcyQzAmTVMyMjFfUDMwTDJHMUMwJk0yNDlfUDMwTDJHMkMw">Example 2</a></li>
+                </ul>
             </div>
-        </div>
 
-        <div class="mb-5">
-            <h4><strong>How does this work?</strong></h4>
-            <p>
-                The calculation is done entirely in your web browser, with no data on your modules stored anywhere and no tracking nastiness at all. <em>For nerds</em> -
-                this was partly an excuse to play with ASP.NET Blazor WebAssembly, with it’s tasty C# on the client side. Find the code on the
-                <a href="https://github.com/LucyParry/degree-class-estimator/tree/master/src">GitHub repo</a>, suggestions welcome!
-            </p>
-        </div>
-
-        <div class="mb-5">
-            <h4><strong>I still have questions!</strong></h4>
-            <p><a href="@Email">Email me</a> and I'll do my best to help!</p>
-        </div>
-        <hr />
-        <div>
-            <div class="small-text">
+            <div class="mb-2">
+                <h6><strong>A note on transferred credit</strong></h6>
                 <p>
-                    [1] Thank you to them for inspiring this version! <br />
-                    [2] Degrees can also be awarded without honours, these are usually referred to as 'ordinary degrees' and do not receive a classification. <br />
+                    If you have been awarded transferred credit and so have less than 240 credits at Level 2 or above, the thresholds for each degree class are
+                    adjusted pro-rata, down to a minimum of 120. The tool will attempt to take this into account if you add a module with the amount of transferred
+                    credit you have been given and set the grade to 'transferred'. Note that degrees with transferred credit are notoriously tricky, so always contact the OU to discuss!
                 </p>
             </div>
-        </div>
-        <hr />
-        <div class="col-md-2"></div>
-    </div>
 
+        </div>
+    </div>
 </div>
 
 @code {
@@ -163,5 +154,4 @@
         Email = "mailto:lucy.parry@gmail.com";
         Insta = "https://www.instagram.com/lucylucyparry/";
     }
-
 }
