@@ -1,6 +1,6 @@
 ﻿namespace DegreeClassEstimator.Model
 {
-    public class ClassThresholds : IResult
+    public class ClassThresholds
     {
         public int AvailableCredit { get; set; }
 

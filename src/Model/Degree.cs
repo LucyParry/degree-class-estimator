@@ -8,11 +8,10 @@ namespace DegreeClassEstimator.Model
     /// <summary>
     /// Represents an Open University undergraduate honours degree for the purposes of calculating its final classification
     /// </summary>
-    public class Degree : IResult
+    public class Degree
     {
         public Degree()
         {
-            IsCalculated = false;
             CalculationResult = new Result<Degree>(success: false, errors: new List<string> { });
             AllModules = new List<Module>();
             CountingModules = new List<Module>();
