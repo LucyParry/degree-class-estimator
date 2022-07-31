@@ -5,9 +5,11 @@
 @inject ILogger<AddModule> Logger;
 
 <div class="card mb-3">
-    <div class="card-body">
-        <h4 class="card-title strong mb-4">Add Modules</h4>
+    <div class="card-header card-header-theme">
+        <h4 class="card-title strong mt-2">Add Modules</h4>
+    </div>
 
+    <div class="card-body">
         <EditForm EditContext="@editContext" OnValidSubmit="@HandleValidSubmit">
             <DataAnnotationsValidator />
 

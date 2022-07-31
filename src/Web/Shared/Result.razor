@@ -4,10 +4,12 @@
     <div id="result" class="row">
         <div class="col-md-12">
             <div class="card-group">
-
                 <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title strong">Initial classification</h5>
+                    <div class="card-header card-header-theme">
+                        <h5 class="card-title mt-2 strong">Initial classification</h5>
+                    </div>
+
+                    <div class="card-body">                        
                         <p class="card-text">Your weighted total credits is <span class="strong">@Degree.DegreeWeightedCredits</span>, giving an initial classification of - 
                             <br/><span class="strong">@Degree.InitialClass.GetEnumDescription()</span>
                         </p>
@@ -39,7 +41,6 @@
                                                 <td>@(Degree.InitialClassThresholds.LowerSecondUpperBound + 1) to @Degree.InitialClassThresholds.ThirdUpperBound</td>
                                             </tr>
                                         </table>
-
                                     </div>
                                 </div>
                             </div>
@@ -48,8 +49,11 @@
                 </div>
 
                 <div class="card">
+                    <div class="card-header card-header-theme">
+                        <h5 class="card-title mt-2 strong">Quality assurance</h5>
+                    </div>
+
                     <div class="card-body">
-                        <h5 class="card-title strong">Quality assurance</h5>
                         <p>Your best 60 credits at Level 3 (weighted total <span class="bold-message">@Degree.QualityAssuranceWeightedCredits</span>) indicate a QA class of - 
                             <br/><span class="strong">@Degree.QualityAssuranceClass.GetEnumDescription()</span>
                         </p>
@@ -90,8 +94,11 @@
                 </div>
 
                 <div class="card">
+                    <div class="card-header card-header-theme">
+                        <h5 class="card-title mt-2 strong">Final classification</h5>
+                    </div>
+
                     <div class="card-body">
-                        <h5 class="card-title strong">Final classification</h5>
                         @{
                             string compare = "";
                             if ((int)Degree.InitialClass == (int)Degree.QualityAssuranceClass) { compare = "matches"; }

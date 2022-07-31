@@ -10,9 +10,11 @@
 @if (Degree.AllModules.Any())
 {
     <div class="card">
-        <div class="card-body">
-            <h4 class="card-title strong mb-4">Your Degree</h4>
+        <div class="card-header card-header-theme">
+            <h4 class="card-title strong mt-2">Your Degree</h4>
+        </div>
 
+        <div class="card-body">
             <div>
                 <div class="row d-none d-sm-none d-md-flex mb-2">
                     <div class="col-md-1"></div>
@@ -22,6 +24,8 @@
                     <div class="col-md-2 strong">Level</div>
                     <div class="col-md-3"></div>
                 </div>
+
+                @{ int counter = Degree.AllModules.Count(); }
 
                 @foreach (var module in Degree.AllModules)
                 {
@@ -88,10 +92,15 @@
                             </div>
                         </div>
                     </EditForm>
-                    <hr />
+
+                    counter--;
+                    if(counter > 0)
+                    {
+                        <hr class="sm-2" />
+                    }
                 }
 
-                <div class="row d-none d-sm-none d-md-flex mb-2">
+                <div class="row d-none d-sm-none d-md-flex mb-2 mt-4">
                     <div class="col-md-2 strong">Totals:</div>
                     <div class="col-md-1"></div>
                     <div class="col-md-2 strong">@Degree.AllModuleCredits</div>
