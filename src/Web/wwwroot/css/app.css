@@ -9,9 +9,12 @@ html, body {
     line-height: 1.4;
 }
 
+hr {
+    margin: 0.5rem 0 0.75rem 0;
+}
+
 
 /* Default Blazor Error UI */
-
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -38,7 +41,7 @@ html, body {
 }
 
     .blazor-error-boundary::after {
-        content: "An error has occurred."
+        content: "Sorry, an error has occurred. It's not you it's me!"
     }
 
 
@@ -72,7 +75,6 @@ html, body {
     vertical-align: middle;
     font-size: 4rem;
 }
-
 
 /* Top Nav */
 
