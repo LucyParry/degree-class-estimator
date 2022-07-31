@@ -8,11 +8,10 @@ namespace DegreeClassEstimator.Model
     /// <summary>
     /// Represents an Open University undergraduate honours degree for the purposes of calculating its final classification
     /// </summary>
-    public class Degree : IResult
+    public class Degree
     {
         public Degree()
         {
-            IsCalculated = false;
             CalculationResult = new Result<Degree>(success: false, errors: new List<string> { });
             AllModules = new List<Module>();
             CountingModules = new List<Module>();
@@ -21,6 +20,8 @@ namespace DegreeClassEstimator.Model
 
 
         public bool IsCalculated { get; set; }
+
+        public bool IsValid => this.IsCalculated && !this.CalculationResult.Errors.Any();
 
 
         /// <summary>
@@ -57,8 +58,6 @@ namespace DegreeClassEstimator.Model
         /// A <see cref="ClassThresholds"/> object representing the Credits threshold for each classification
         /// </summary>
         public ClassThresholds InitialClassThresholds { get; set; }
-
-
 
 
         /// <summary>
@@ -140,7 +139,6 @@ namespace DegreeClassEstimator.Model
         }
 
 
-
         /// <summary>
         /// Reset all members set when calculating the degree class
         /// </summary>
@@ -156,7 +154,7 @@ namespace DegreeClassEstimator.Model
         }
 
         /// <summary>
-        /// 
+        /// The sum of the final weighted credit for all modules that will count towards the <see cref="Degree"/> classification
         /// </summary>
         public int DegreeWeightedCredits
         {
@@ -170,7 +168,7 @@ namespace DegreeClassEstimator.Model
         }
 
         /// <summary>
-        /// 
+        /// THe sum of the weighted credit for all modules that will count towards the QA classification
         /// </summary>
         public int QualityAssuranceWeightedCredits
         {
@@ -184,7 +182,7 @@ namespace DegreeClassEstimator.Model
         }
 
         /// <summary>
-        /// 
+        /// All Level 3 modules ordered by Grade (1 - 4), then whether Compulsory or not
         /// </summary>
         public IEnumerable<Module> OrderedLevelThreeModules
         {
@@ -197,6 +195,9 @@ namespace DegreeClassEstimator.Model
             }
         }
 
+        /// <summary>
+        /// Level 3 modules which will count towards the degree, ordered by Grade (1 - 4)
+        /// </summary>
         public IEnumerable<Module> OrderedCountedLevelThreeModules
         {
             get
@@ -207,6 +208,9 @@ namespace DegreeClassEstimator.Model
             }
         }
 
+        /// <summary>
+        /// All Level 3 modules which are ~not~ yet counted towards the degree, ordered by Grade (1 - 4), then whether Compulsory or not
+        /// </summary>
         public IEnumerable<Module> UncountedModules
         {
             get
@@ -218,6 +222,10 @@ namespace DegreeClassEstimator.Model
             }
         }
 
+        /// <summary>
+        /// Return a string consisting of all module codes, separated by '&' 
+        /// </summary>
+        /// <returns></returns>
         public string GetModuleCodeString()
         {
             string[] moduleCodes = AllModules.Select(x => x.ModuleDescriptionCode).ToArray();
@@ -228,7 +236,6 @@ namespace DegreeClassEstimator.Model
         /// <summary>
         /// Check a valid credit amount is present
         /// </summary>
-        /// <returns></returns>
         public void Validate()
         {
             if (this.AllModuleCredits < Constants.RequiredCreditsAboveLevel1)
@@ -240,7 +247,7 @@ namespace DegreeClassEstimator.Model
 
 
         /// <summary>
-        /// 
+        /// If the <see cref="Degree"/> is valid, classify it using the <see cref="IClassifier"/> 
         /// </summary>
         /// <returns></returns>
         public void Classify(IClassifier classifier)
@@ -254,17 +261,8 @@ namespace DegreeClassEstimator.Model
         }
 
 
-        public bool IsValid 
-        {
-            get
-            {
-                return this.IsCalculated && !this.CalculationResult.Errors.Any();
-            }       
-        }
-
-
         /// <summary>
-        /// Get all modules which will count for the degree class from the given list
+        /// Set all modules which will count for the degree class from the given list
         /// </summary>
         /// <param name="availableModules"></param>
         /// <param name="maxCredits"></param>
@@ -276,6 +274,9 @@ namespace DegreeClassEstimator.Model
                 if (CurrentCountingModuleCredits < maxCredits)
                 {
                     var nextModuleInitialCredits = nextModule.Credits;
+
+                    // if the next module's credits + the current amount of counting credits on the Degree would exceed the
+                    // maximum required, create a new module with credits only up to the maximum
                     if (nextModule.Credits + CurrentCountingModuleCredits > maxCredits)
                     {
                         nextModule.Code += " (Partial)";
@@ -296,7 +297,7 @@ namespace DegreeClassEstimator.Model
         }
 
         /// <summary>
-        /// 
+        /// Set all QA modules for the <see cref="Degree"/>
         /// </summary>
         public void AddQualityAssuranceModules()
         {

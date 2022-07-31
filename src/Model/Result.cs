@@ -2,11 +2,7 @@
 
 namespace DegreeClassEstimator.Model
 {
-    public interface IResult
-    {
-    }
-
-    public class Result<T> where T : IResult
+    public class Result<T>
     {
         public bool Success { get; set; }
 

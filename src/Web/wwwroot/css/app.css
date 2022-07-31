@@ -6,11 +6,15 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.4;
+}
+
+hr {
+    margin: 0.5rem 0 0.75rem 0;
 }
 
 
 /* Default Blazor Error UI */
-
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -37,7 +41,7 @@ html, body {
 }
 
     .blazor-error-boundary::after {
-        content: "An error has occurred."
+        content: "Sorry, an error has occurred. It's not you it's me!"
     }
 
 
@@ -72,7 +76,6 @@ html, body {
     font-size: 4rem;
 }
 
-
 /* Top Nav */
 
 .navbar {
@@ -104,6 +107,7 @@ html, body {
 
 .small-text {
     font-size: 0.75em;
+    line-height: 1;
 }
 
 td.table-60 {
@@ -146,4 +150,3 @@ table.thresholds-table {
 .alert-sm h5 {
     margin-bottom: 0.1rem;
 }
-

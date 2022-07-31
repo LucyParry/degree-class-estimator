@@ -1,5 +1,6 @@
 ﻿@using Microsoft.Extensions.Logging
 @using DegreeClassEstimator.Model
+@using System.ComponentModel.DataAnnotations
 
 @inject IJSRuntime JSRuntime
 @inject ILogger<AddModule> Logger;
@@ -12,104 +13,116 @@
         <div class="card-body">
             <h4 class="card-title strong mb-4">Your Degree</h4>
 
-            <div class="table-responsive-lg">
-                <table class="table table-striped table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="text-center" style="width:6%;"></th>
-                            <th scope="col" style="width:15%;">Module</th>
-                            <th scope="col" class="text-center" style="width:10%;">Credits</th>
-                            <th scope="col" class="text-center" style="width:10%;">Grade</th>
-                            <th scope="col" class="text-center" style="width:10%;">Level</th>                            
-                            <th scope="col">Weighted</th> 
-                            <th scope="col">QA</th> 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var module in Degree.AllModules)
-                        {
-                            <tr>
-                                <td class="text-center align-middle">
-                                    <button @onclick="(() => OnRemoveModule(module))" type="submit" class="btn btn-outline-danger btn-sm" title="Remove module">
-                                        <i class="bi bi-trash mr-2"></i>
-                                    </button>
-                                </td>
-                                <td class="align-middle">
-                                    <span class="mr-2">@module.Code</span>
-                                    @if (module.Compulsory)
+            <div>
+                <div class="row d-none d-sm-none d-md-flex mb-2">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2 strong">Code</div>
+                    <div class="col-md-2 strong">Credits</div>
+                    <div class="col-md-2 strong">Grade</div>
+                    <div class="col-md-2 strong">Level</div>
+                    <div class="col-md-3"></div>
+                </div>
+
+                @foreach (var module in Degree.AllModules)
+                {
+                    EditContext context = new EditContext(module);
+                    context.OnFieldChanged += OnFormUpdated;
+
+                    <EditForm EditContext="@context">
+                        <DataAnnotationsValidator />
+                        <div class="row g-3">
+
+                            <div class="col-md-1">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button @onclick="(() => OnRemoveModule(module))" type="submit" class="btn btn-outline-danger btn-sm" title="Remove module">
+                                            <i class="bi bi-trash mr-2"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-check">                             
+                                            <InputCheckbox @bind-Value="module.Compulsory" class="form-check-input mt-2" title="Compulsory"></InputCheckbox>
+                                            <label for="@module.Compulsory" class="col-form-label d-md-none">Compulsory</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <InputText class="form-control" @bind-Value="module.Code" />
+                            </div>
+                            <div class="col-md-2">
+                                <InputNumber class="form-control" @bind-Value="module.Credits" />
+                                <ValidationMessage For="@(() => module.Credits)" />
+                            </div>
+                            <div class="col-md-2">
+                                <Web.Components.InputSelectEnum class="form-select" @bind-Value="module.Grade"></Web.Components.InputSelectEnum>
+                            </div>
+                            <div class="col-md-2">
+                                <Web.Components.InputSelectEnum class="form-select" @bind-Value="module.Level"></Web.Components.InputSelectEnum>
+                            </div>
+                            <div class="col-md-3">
+                                @if(@module.Compulsory)
+                                {
+                                    <span class="small-text">Compulsory</span>
+                                    <br />
+                                }
+
+                                @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
+                                {
+                                    if (Degree.CountingModules.Contains(module))
                                     {
-                                        <span class="badge bg-primary">Primary</span>
-                                    }
-                                </td>
-                                <td class="text-center align-middle">@module.Credits</td>
-                                <td class="text-center align-middle">@module.Grade.GetEnumDescription()</td>
-                                <td class="text-center align-middle">@( (int)module.Level )</td>                                
-                                <td>
-                                    @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
-                                    {
-                                        if (Degree.CountingModules.Contains(module))
-                                        {
-                                            @module.FinalWeightedCreditsShortDescription<span>&nbsp;=&nbsp;</span><span class="strong">@module.FinalWeightedCredits</span>
-                                            <br />
-                                            <span class="small-text">@module.FinalWeightedCreditsLongDescription</span>
-                                        }
-                                        else
-                                        {
-                                            <span>Not required</span>
-                                        }
-                                    }
-                                </td>
-                                <td>
-                                    @if (!Degree.CalculationResult.Errors.Any() && Degree.IsCalculated)
-                                    {
+                                        @module.FinalWeightedCreditsShortDescription
                                         if (Degree.QualityAssuranceModules.Contains(module))
                                         {
-                                            <br />
-                                            <span>@module.GradeWeightedCreditsShortDescription</span>
+                                            <span> (QA: @module.GradeWeightedCreditsShortDescription)</span>
                                         }
+                                        <br />
+                                        <span class="small-text">@module.FinalWeightedCreditsLongDescription</span>
                                     }
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th class="text-center align-middle">Totals</th>
-                            <th></th>
-                            <th class="text-center align-middle">@Degree.AllModuleCredits</th>
-                            <th></th>
-                            <th></th>
-                            <th class="text-center align-middle">
-                                @{
-                                    var weighted = Degree.IsValid ? Degree.DegreeWeightedCredits.ToString() : "";
-                                    @weighted
+                                    else
+                                    {
+                                        <span>Not required</span>
+                                    }
                                 }
-                            </th>
-                            <th class="text-center align-middle">
-                                @{
-                                    var weightedQA = Degree.IsValid ? Degree.QualityAssuranceWeightedCredits.ToString() : "";
-                                    @weightedQA
-                                }
-                            </th>
-                        </tr>
-                    </tfoot>
-                </table>
+                            </div>
+                        </div>
+                    </EditForm>
+                    <hr />
+                }
 
+                <div class="row d-none d-sm-none d-md-flex mb-2">
+                    <div class="col-md-2 strong">Totals:</div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2 strong">@Degree.AllModuleCredits</div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3 strong">
+                        @{
+                            if(Degree.IsValid)
+                            {
+                                string totalString = $"{Degree.DegreeWeightedCredits} (QA:{@Degree.QualityAssuranceWeightedCredits})";
+                                @totalString;
+                            }                        
+                        }
+                    </div>
+                </div>
             </div>
 
+            <hr />
+
             <div class="row">
-                <div class="col-sm-4 mt-2">
+                <div class="col-sm-3 mt-2">
                     <button type="submit" @onclick="DoClassify" class="btn btn-theme">Estimate</button>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-9">
                     @if (Degree.CalculationResult?.Errors.Any() ?? false)
                     {
                         @foreach (string error in Degree.CalculationResult.Errors)
                         {
-                            <span class="validation-message">@error</span>
-                            <br />
+                            <span class="validation-message">@error. </span>
                         }
-                        <span class="validation-message">Refer to the instructions for the minimum requirements for calculating your degree class</span>
+                        <p><span class="validation-message">Refer to the <a href="Help">help page</a> for the minimum requirements for calculating your degree class.</span></p>
                     }
                 </div>
             </div>
@@ -139,11 +152,13 @@
 
 @code
 {
-    [Parameter] public Degree? Degree { get; set; }
+    [Parameter] public Degree Degree { get; set; }
     [Parameter] public Action<Module> OnRemoveModule { get; set; }
 
     ClassThresholds[]? Thresholds;
     IClassifier? Classifier;
+
+    //string? checkedMessage;
 
     string? SaveUri { get; set; }
 
@@ -153,13 +168,19 @@
         Classifier = new StandardClassifier(Thresholds);
     }
 
+    private void OnFormUpdated(Object sender, FieldChangedEventArgs args)
+    {
+        //checkedMessage = $"Last changed at {DateTime.Now}";
+        DoClassify();
+    }
+
     async void DoClassify()
     {
         Degree.Classify(Classifier);
         this.SaveUri = Degree.IsValid ? $"{NavManager.Uri}{(Degree.GetModuleCodeString()).Base64Encode(System.Text.Encoding.UTF8)}" : "";
         this.StateHasChanged();
 
-         await JSRuntime.InvokeVoidAsync("jsInteropFunctions.sectionJump", "results-section");
+        await JSRuntime.InvokeVoidAsync("jsInteropFunctions.sectionJump", "results-section");
     }
 
     async void DoClipboardCopy()
