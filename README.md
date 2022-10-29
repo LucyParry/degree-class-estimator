@@ -1,4 +1,4 @@
-﻿## <a href="https://lucyparry.github.io/degree-class-estimator/">Completely Unofficial OU Degree Class Estimator</a>
+﻿## <a href="https://lucyparry.github.io/degree-class-estimator/">Completely Unofficial Open University (OU) Degree Class Estimator</a>
 
 ![example workflow](https://github.com/LucyParry/degree-class-estimator/actions/workflows/main.yml/badge.svg)
 
