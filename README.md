@@ -1,8 +1,6 @@
 ﻿# <a href="https://lucyparry.github.io/degree-class-estimator/">Completely Unofficial Open University (OU) Degree Class Estimator</a>
  
  ### OU students - Click above for the working version!
- 
- ### Development
 
 ![example workflow](https://github.com/LucyParry/degree-class-estimator/actions/workflows/main.yml/badge.svg)
 
